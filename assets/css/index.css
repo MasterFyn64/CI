@@ -1,0 +1,268 @@
+/*-------------------------------Carousel------------------*/
+.slide1{
+    background-image: url('../images/1.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.slide2{
+    background-image: url('../images/2.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+.slide3 {
+    background-image: url('../images/3.jpg');
+    height: 500px;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+}
+/*------------------------------Carousel -------------------*/
+
+input.login {
+    padding: 15px;
+    margin-bottom: 15px;
+}
+
+.header{
+    padding:17px 0px 16px 15px;
+}
+
+.header-text{
+    padding:5px 30px 0px 0px;
+}
+.register-menu{
+    margin-top: 30px;
+}
+textarea {
+    resize: none;
+}
+
+.menu-wrapper {
+    position: relative
+}
+
+.login-menu {
+    margin-top:150px;
+    width: 50%;
+    position: absolute;
+    left:25%;
+    top: 0;
+    height: 150px;
+
+}
+.social-icon{
+    width: 25px;
+    margin-right: 10px;
+}
+
+.footer{
+    padding-top:20px;
+    margin-top:20px;
+}
+
+.footer p {
+    color: black;
+}
+.footer a {
+    color: white;
+}
+
+.header > a > img{
+    width:140px;
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+
+/*----------------------------------start rewriting navbar----------------------*/
+/* title */
+.navbar-default .navbar-brand {
+    color: #777;
+    padding-top: 20px;
+}
+.navbar-brand  > img{
+    width:140px;
+}
+/* link */
+.navbar-default .navbar-nav > li > a {
+    color: #fff;
+}
+/* nav bar changing */
+.navbar-default {
+    background-color: #337ab7;
+    border-color: #fff;
+}
+/*not needed to change*/
+.navbar-default .navbar-brand:hover,
+.navbar-default .navbar-brand:focus {
+
+}
+.navbar-default .navbar-nav > li > a:hover,
+.navbar-default .navbar-nav > li > a:focus {
+    color: #30b5e2;
+}
+.navbar-default .navbar-nav > .active > a,
+.navbar-default .navbar-nav > .active > a:hover,
+.navbar-default .navbar-nav > .active > a:focus {
+    color: #555;
+    background-color: #30b5e2;
+}
+.navbar-default .navbar-nav > .open > a,
+.navbar-default .navbar-nav > .open > a:hover,
+.navbar-default .navbar-nav > .open > a:focus {
+    color: #246083;
+    background-color: #2f9ee5;
+}
+/* caret */
+.navbar-default .navbar-nav > .dropdown > a .caret {
+    border-top-color: #fff;
+    border-bottom-color: #fff;
+}
+
+.navbar-default .navbar-text {
+    color: #f8fdff;
+    margin-top: 20px;
+    padding: 0px;
+}
+
+/* ---------------------------finish rewrite navbar css----------------------*/
+
+span .glyphicon-profile{
+    font-size:1.5em;
+    cursor:pointer;
+    padding-left: 10px;
+}
+
+.page-name{
+    text-align: center;
+    font-size:40px;
+}
+
+.user-nav-photo{
+    width: 35px;
+    margin-top:0px;
+    paddding:0px;
+    top:0;
+}
+
+.navbar-size{
+    height:70px;
+    top:0;
+    padding: 0px;
+    margin: 0px;
+}
+
+.navbar-default .navbar-text > img {
+    width: 35px;
+    margin-top:-5px;
+}
+
+
+.navbar-default .navbar-toggle {
+    border-color: #30b5e2;
+}
+.navbar-default .navbar-toggle:hover,
+.navbar-default .navbar-toggle:focus {
+    background-color: #2f9ee5;
+}
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: #246083;
+}
+
+.img-profile{
+    margin-top:20px;
+    margin-bottom:40px;
+    width: 200px;
+}
+
+.profile-information{
+    margin: 50px 0px 20px 0px;
+}
+.profile-information > .form-group > label {
+    background-color: #2f9ee5;
+    border-radius:8px;
+    padding: 0px 10px 0px 10px;
+    color:white;
+}
+.profile-information > .form-group > span {
+    margin-left:30px;
+}
+
+.dropdown a  > img{
+    margin:-8px 10px 0px -10px;
+    padding: -10px 5px 0px 5px;
+}
+
+@media (max-width: 767px) {
+    .navbar-default .navbar-nav .open .dropdown-menu-pages > li > a {
+        color: #f8fdff;
+    }
+
+    .navbar-default .navbar-nav .open .dropdown-menu-pages > li > a:hover,
+    .navbar-default .navbar-nav .open .dropdown-menu-pages > li > a:focus {
+        color: #2f9ee5;
+        background-color: transparent;
+    }
+
+    .dropdown a  > img{
+        margin-right: 10px;
+        margin-top:2px;
+    }
+
+    .img-profile{
+        width: 150px;
+        margin-top:20px;
+        margin-bottom:20px;
+    }
+    .profile-information{
+        margin-left: 25%;
+    }
+}
+
+
+
+
+@media (min-width: 768px) {
+    .login-menu {
+        margin-top:300px;
+        width: 30%;
+        position: absolute;
+        left: 68%;
+        top: 0;
+    }
+}
+@media (min-width: 992px) {
+    .login-menu {
+        margin-top:300px;
+        width: 29%;
+        position: absolute;
+        left: 70%;
+        top: 0;
+        bottom: 0;
+    }
+}
+@media (min-width: 1200px) {
+    .login-menu {
+        margin-top:300px;
+        width: 24%;
+        position: absolute;
+        left: 75%;
+        top: 0;
+        bottom: 0;
+    }
+}
+
+@media (min-width: 1600px) {
+    .login-menu {
+        margin-top:300px;
+        width: 19%;
+        position: absolute;
+        left: 80%;
+        top: 0;
+        bottom: 0;
+    }
+}

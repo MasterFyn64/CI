@@ -114,13 +114,14 @@ $(document).ready(function() {
         }
         if(!error)
         {
-            var user_id=$('div[name="user_id"]').attr('id');
+            //Used to take the timeout on cancelling the values change
+            $('span[id="'+field_name+'"]').attr('value', changed_value); // update data
+
             //updates database
             $.post("/CI/api/saveData",
                 {
                     value: changed_value,
                     property:field_name,
-                    id:user_id
                 },
                 function(data, status){
                     console.log("Data: " + data + "\nStatus: " + status);
@@ -144,13 +145,14 @@ $(document).ready(function() {
         var  edit_link = $(e.target);
         var field_name= edit_link.attr('value');
         $('span[id="'+field_name+'"]').attr('contenteditable',false);
-        var changed_value=$('span[id="'+field_name+'"]').html();
+
+        //returns the last entered value without going to the database
+        $('span[id="'+field_name+'"]').html($('span[id="'+field_name+'"]').attr('value'));
 
         $('span[name="save-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-ok text-success hidden");
         $('span[name="cancel-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-remove text-danger hidden");
         $('span[name="edit-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-edit text-primary");
-
-        setTimeout(reloadPage,0);
+        
     });
     /*---------------------------------------------End of profile treatment-------------------------------------------------*/
 

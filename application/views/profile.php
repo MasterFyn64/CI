@@ -1,6 +1,5 @@
 <!-- profile body -->
 <div class="page-name">Profile</div>
-<div class="hidden" name="user_id" id="<?=$_SESSION['id']?>"></div>
 <div class="container">
    <div class="row">
        <!-- profile image and the form to upload new profile image-->
@@ -11,7 +10,6 @@
 
             <input type="file" class="btn btn-primary center-block" name="userfile" size="20">
             <br />
-            <input type="hidden"  name="id" value="<?=$id?>">
 
             <input type="submit" class="btn btn-primary center-block" value="upload" />
 
@@ -25,7 +23,7 @@
                    Name:
                </label>
                <span id="edit-name">
-                    <span  id="name"><?=$name?></span>
+                    <span  value="<?=$name?>" id="name"><?=$name?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-name" value="name"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-name" value="name" id="save"></span>
                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-name" value="name" id="remove"></span>
@@ -36,7 +34,7 @@
                    Email:
                </label>
                <span id="edit-email">
-                    <span  id="email"><?=$email?></span>
+                    <span value="<?=$email?>" id="email"><?=$email?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-email" value="email"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-email" value="email" id="save"></span>
                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-email" value="email" id="remove"></span>
@@ -49,7 +47,7 @@
                     Address:
                </label>
                <span id="edit-address">
-                    <span  id="address"><?=$address?></span>
+                    <span  value="<?=$address?>" id="address"><?=$address?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-address" value="address"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-address" value="address" id="save"></span>
                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-address" value="address" id="remove"></span>
@@ -61,7 +59,7 @@
                     Birthdate:
                </label>
                <span id="edit-birthdate">
-                    <span  id="birthdate"><?=$birthdate?></span>
+                    <span  value="<?=$birthdate?>"id="birthdate"><?=$birthdate?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-birthdate" value="birthdate"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-birthdate" value="birthdate" id="save"></span>
                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-birthdate" value="birthdate" id="remove"></span>

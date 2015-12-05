@@ -11,7 +11,7 @@ class Api extends CI_Controller {
     {
         session_start();
 
-        if(!empty($_SESSION['user_data']) &&  !empty($_POST['property']) && !empty($_POST['value']) && !empty($_POST['id']) ) //check if the data isset and proceeds to saving data
+        if(!empty($_SESSION['user_data']) &&  !empty($_POST['property']) && !empty($_POST['value'])) //check if the data isset and proceeds to saving data
         {
             $error=false;
             switch($_POST['property'])
@@ -52,7 +52,7 @@ class Api extends CI_Controller {
 
             if(!$error)
             {
-                $this->DB_Helper->update('person',array($_POST['property']=>$_POST['value']),array('id'=>$_POST['id']));
+                $this->DB_Helper->update('person',array($_POST['property']=>$_POST['value']),array('id'=>$_SESSION['id']));
             }
 
         }

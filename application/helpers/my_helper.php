@@ -25,11 +25,11 @@ if ( ! function_exists('getUserSessionData'))
 
         if($user_type=='Doctor')
         {
-            $data= ['user_type'=>$user_type,'name'=>$user_data->getName(),'photo_url'=>$user_data->getPhotoUrl(),'room_number'=>$user_data->getRoomNumber(),'address'=>$user_data->getAddress(),'birthdate'=>$user_data->getBirthdate(),'photo_url'=>$user_data->getPhotoUrl(),'contacts'=>$_SESSION['contacts'],'id'=>$user_data->getId(),'room_number'=>$user_data->getRoomNumber(),'email'=>$user_data->getEmail()];
+            $data= ['user_type'=>$user_type,'name'=>$user_data->getName(),'photo_url'=>$user_data->getPhotoUrl(),'room_number'=>$user_data->getRoomNumber(),'address'=>$user_data->getAddress(),'birthdate'=>$user_data->getBirthdate(),'photo_url'=>$user_data->getPhotoUrl(),'contacts'=>$_SESSION['contacts'],'room_number'=>$user_data->getRoomNumber(),'email'=>$user_data->getEmail()];
         }
         else
         {
-            $data= ['user_type'=>$user_type,'name'=>$user_data->getName(),'photo_url'=>$user_data->getPhotoUrl(),'room_number'=>"",'address'=>$user_data->getAddress(),'birthdate'=>$user_data->getBirthdate(),'photo_url'=>$user_data->getPhotoUrl(),'contacts'=>$_SESSION['contacts'],'id'=>$user_data->getId(),'email'=>$user_data->getEmail()];
+            $data= ['user_type'=>$user_type,'name'=>$user_data->getName(),'photo_url'=>$user_data->getPhotoUrl(),'room_number'=>"",'address'=>$user_data->getAddress(),'birthdate'=>$user_data->getBirthdate(),'photo_url'=>$user_data->getPhotoUrl(),'contacts'=>$_SESSION['contacts'],'email'=>$user_data->getEmail()];
         }
 
         return $data;

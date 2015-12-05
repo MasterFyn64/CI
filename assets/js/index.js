@@ -66,6 +66,9 @@ $(document).ready(function() {
         $('span[id="'+field_name+'"]').attr('contenteditable',false);
         var changed_value=$('span[id="'+field_name+'"]').html();
 
+        //in case of errors save the last value
+        var last_value = $('span[id="'+field_name+'"]').attr('value');
+
         var error=false;
         message_notification=message_type=message_title=message_delay="";
         switch (field_name) //checks what field will be updated
@@ -130,7 +133,10 @@ $(document).ready(function() {
         else
         {
             notify(message_notification,message_type,message_title,message_delay);
-            setTimeout(reloadPage,3000);
+
+            //Used to take the timeout on cancelling the values change
+            $('span[id="'+field_name+'"]').attr('value', last_value); // update data
+            $('span[id="'+field_name+'"]').html(last_value);
         }
 
         $('span[name="save-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-ok text-success hidden");
@@ -152,7 +158,7 @@ $(document).ready(function() {
         $('span[name="save-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-ok text-success hidden");
         $('span[name="cancel-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-remove text-danger hidden");
         $('span[name="edit-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-edit text-primary");
-        
+
     });
     /*---------------------------------------------End of profile treatment-------------------------------------------------*/
 

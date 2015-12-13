@@ -24,7 +24,7 @@ class Register extends CI_Controller {
 
     public function insert()
     {
-
+        checkSessionStart();
         //retrieving all form data
         $email = $_POST['email'];
         $name = $_POST['name'];
@@ -33,7 +33,9 @@ class Register extends CI_Controller {
         $contacts = $_POST['contact'];
         $birthdate = $_POST['birthdate'];
         $address  = $_POST['address'];
+        $doctor =$_POST['id'];
 
+        var_dump($_SESSION);
         $errors="";
 
         $s=strtotime($birthdate);
@@ -77,7 +79,7 @@ class Register extends CI_Controller {
                  }
 
                  //insert is role
-                 $this->DB_Helper->insertArray('user',array('person_id'=>$insert_id));
+                 $this->DB_Helper->insertArray('user',array('person_id'=>$insert_id,'doctor_id'=>$doctor));
 
                  $this->load->view("navbar", getUserSessionDataArray());
                  $this->load->view('errors_notification', notification('User created correctly!', "success", "User creation: ", 3000));

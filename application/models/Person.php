@@ -22,8 +22,9 @@ abstract class Person extends CI_Model{
         return $this->DB_Helper->getByUserId($this->id, "plan");
     }
     
-    public function getAppointments(){
-        return $this->DB_Helper->getByUserId($this->id, "appointment");
+    public function getAppointments($type){
+
+        return $this->DB_Helper->getByUserIdAndType($this->id, "appointment",$type);
     }
     
     public function getContacts(){

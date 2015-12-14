@@ -33,9 +33,9 @@ class Register extends CI_Controller {
         $contacts = $_POST['contact'];
         $birthdate = $_POST['birthdate'];
         $address  = $_POST['address'];
-        $doctor =$_POST['id'];
 
-        var_dump($_SESSION);
+        $doctor =$_SESSION['id'];
+
         $errors="";
 
         $s=strtotime($birthdate);

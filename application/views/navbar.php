@@ -34,8 +34,8 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-pages">
-                    <li><a href="#">Book</a></li>
-                    <li><a href="#">Check</a></li>
+                    <li><a href="<?=base_url()?>">New</a></li>
+                    <li><a href="<?=base_url()?>appointments">View all</a></li>
                 </ul>
             </li>
             <li ><a href="#">Statistics</a></li>
@@ -46,8 +46,8 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-pages">
-                    <li><a href="#">New</a></li>
-                    <li><a href="#">Check</a></li>
+                    <li><a href="<?=base_url()?>new">New</a></li>
+                    <li><a href="<?=base_url()?>messages">View All</a></li>
                 </ul>
             </li>
             <?php

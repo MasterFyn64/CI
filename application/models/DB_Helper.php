@@ -33,18 +33,43 @@ static $DOCTOR = "doctor";
     }
     
     // get objects by IDs
-    public function getByUserId($user_id, $table){
-        $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE person_id=".$user_id);
+    public function getByUserIdAndType($user_id, $table,$type){
+
+        $temp =strtoupper($type);
+       if($temp=="DOCTOR")
+       {
+           $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE doctor_id=".$user_id);
+       }
+        else
+            $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE user_id=".$user_id);
+
 
         $item_array = array();
 
         $error = $this->db->error();
+
         if($error['code']==0) //Check for any errors
         {
-            foreach ($query->result($table) as $item) {
-                array_push($item_array, $item);
-            }
-            return $item_array;
+
+            return $query->result_array();
+        }
+        return null;
+    }
+
+    // get objects by IDs
+    public function getByUserId($user_id, $table){
+
+           $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE person_id=".$user_id);
+
+
+        $item_array = array();
+
+        $error = $this->db->error();
+
+        if($error['code']==0) //Check for any errors
+        {
+
+            return $query->result_array();
         }
         return null;
     }
@@ -124,6 +149,23 @@ static $DOCTOR = "doctor";
         }
         return null;
     }
+
+    public function get_join($tables,$condition ,$where){
+
+        $this->db->select('*');
+        $this->db->from($tables[0]);
+        $this->db->join($tables[1],$condition);
+        $this->db->where($where);
+        $query = $this->db->get();
+
+        $error = $this->db->error();
+        if($error['code']==0) //Check for any errors
+        {
+            return $query->result_array();
+        }
+        return null;
+    }
+
 
     //update table by table name, values and conditions
     public function update($table, $data,$where)

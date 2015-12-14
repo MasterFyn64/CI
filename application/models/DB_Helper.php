@@ -33,15 +33,15 @@ static $DOCTOR = "doctor";
     }
     
     // get objects by IDs
-    public function getByUserIdAndType($user_id, $table,$type){
+    public function getByUserIdAndType($user_id, $table,$type,$order_table,$order){
 
         $temp =strtoupper($type);
        if($temp=="DOCTOR")
        {
-           $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE doctor_id=".$user_id);
+           $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE doctor_id=".$user_id." ORDER BY ".$order_table." ".$order);
        }
         else
-            $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE user_id=".$user_id);
+            $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE user_id=".$user_id." ORDER BY ".$order_table." ".$order);
 
 
         $item_array = array();

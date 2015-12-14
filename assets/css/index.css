@@ -4,14 +4,14 @@
     -webkit-box-shadow: none;
     box-shadow: none;
 }
-.apointment-date-hour
+.appointment-date-hour
 {
     padding: 5px 5px;
     border-radius: 5px;
     margin-bottom: 20px;
 }
 
-.apointment-date-hour input{
+.appointment-date-hour input{
     height: 34px;
     padding: 6px 12px;
     font-size: 14px;
@@ -254,27 +254,6 @@ span .glyphicon-profile{
     }
 }
 
-
-/*Just for the apointment messages*/
-
-@media (max-width: 767px) {
-    .btn-group-lg > .btn {
-        padding: 8px 3px;
-        font-size: 16px;
-        line-height: 1.5;
-        border-radius: 5px;
-    }
-    .header-messages{
-        margin-left: 50px;
-    }
-
-    .messages-content
-    {
-        margin-left: 50px;
-    }
-}
-
-
 @media (min-width: 768px) {
     .btn-group-lg > .btn {
         padding: 14px 15px;
@@ -287,21 +266,9 @@ span .glyphicon-profile{
         left: 68%;
         top: 0;
     }
-
-    .header-messages{
-        margin-left: 30px;
-    }
-
-    .messages-content
-    {
-        margin-left: 30px;
-    }
 }
 
 @media (min-width: 992px) {
-    .btn-group-lg > .btn {
-        padding: 14px 17px;
-    }
     .login-menu {
         margin-top:300px;
         width: 29%;
@@ -312,9 +279,6 @@ span .glyphicon-profile{
     }
 }
 @media (min-width: 1200px) {
-    .btn-group-lg > .btn {
-        padding: 14px 26px;
-    }
     .login-menu {
         margin-top:300px;
         width: 24%;
@@ -326,9 +290,6 @@ span .glyphicon-profile{
 }
 
 @media (min-width: 1600px) {
-    .btn-group-lg > .btn {
-        padding: 14px 26px;
-    }
     .login-menu {
         margin-top:300px;
         width: 19%;

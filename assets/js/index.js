@@ -1,5 +1,56 @@
 $(document).ready(function() {
-/*---------------------------------------------Start of add contacts-------------------------------------------------*/
+
+    $('button[id="search-appointments"]').click(function()
+    {
+
+        var hour = $('input[id="hour"]').val()+":00";
+        var date = $('input[id="date"]').val();
+
+       $('input[id="date-messages"]').each(function() {
+           var message_date = $(this).val();
+           var message_hour = $(this).parent().parent().find('input[id="hour-messages"]').val();
+           if(date>=message_date) {
+               if(date==message_date && hour<=message_hour) //check if the day is the same as message and compare with hour
+               {
+                   console.log(message_hour+" "+hour);
+                   $(this).parent().parent().attr('class', "btn-group btn-group-lg btn-group-justified visible");
+                   var search_content = $(this).parent().parent().attr('id');
+                   var temp =search_content.split("-");
+                   var search = "messages-"+temp[2].toString();
+                   console.log(search);
+                   $('div[id='+search+']').attr("class","collapse visible")
+               }
+              else
+               {
+                   $(this).parent().parent().attr('class', "btn-group btn-group-lg btn-group-justified hidden");
+                   var search_content = $(this).parent().parent().attr('id');
+                   var temp =search_content.split("-");
+                   var search = "messages-"+temp[2].toString();
+                   $('div[id='+search+']').attr("class","collapse hidden")
+               }
+           }
+           else
+           {
+               $(this).parent().parent().attr('class', "btn-group btn-group-lg btn-group-justified visible");
+               var search_content = $(this).parent().parent().attr('id');
+               var temp =search_content.split("-");
+               var search = "messages-"+temp[2].toString();
+               $('div[id='+search+']').attr("class","collapse visible")
+           }
+
+
+       });
+
+    });
+
+    //Edit appointments
+    $('span[id="edit-description"]').click(function()
+    {
+        var old_values = $(this).parent().find('span[class="edit-description"]').html();
+        $(this).parent().find('span[class="edit-description"]').attr('contenteditable',"true").focus();
+    });
+
+    /*---------------------------------------------Start of add contacts-------------------------------------------------*/
     //variable that counts how many contacts where added
         var number_of_contacts=1;
     //Add new contacts input

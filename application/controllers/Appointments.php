@@ -8,7 +8,7 @@ class Appointments extends CI_Controller {
         $type = $_SESSION['user_type'];
 
         $data = $_SESSION['user_data'];
-        $data = $data->getAppointments($type); //getApointment
+        $data = $data->getAppointments($type,'date_hour','desc'); //getApointment
 
         $patients = $this->DB_Helper->get_join(array("user","person"),"user.person_id = person.id",array("user.doctor_id"=>"15"));
 

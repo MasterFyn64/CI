@@ -21,7 +21,6 @@ class Checklogin extends CI_Controller {
                 $this->load->view("header_login");
                 //Sends notification to the user with the view
                 $this->load->view('errors_notification',notification('Your password is wrong!','danger','Password Error: ',1000));
-
                 $this->load->view("welcome");
                 $this->load->view("footer");
             }

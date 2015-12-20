@@ -73,8 +73,13 @@
                </label>
                <span>
                    <?php
-                     foreach($contacts as $contact)
-                        echo $contact->getNumber()."&nbsp;&nbsp;";
+                      if(is_array($contacts))
+                      {
+                          foreach($contacts as $contact)
+                              echo $contact->getNumber()."&nbsp;&nbsp;";
+                      }
+                       else
+                       echo $contacts->getNumber();
                    ?>
                </span></a>
            </div>

@@ -7,23 +7,28 @@ class Profile extends CI_Controller {
         checkSessionStart(); //check if user session has started, and if not start the session
 
         if(isset($_SESSION['id'])) {
+
          // Both retrieve contact data and saves in the session global variable
             //Checks if is an user
-            $result = $this->DB_Helper->getUserById($_SESSION['id']);
-            if($result)
-                $_SESSION['contacts'] = $this->DB_Helper->getByUserId($result->getId(), 'Contact');
+            $user_data = $this->DB_Helper->getUserById($_SESSION['id']);
+
+            if($user_data)
+            {
+                $_SESSION['contacts'] = $user_data->getContacts();
+            }
 
             // if isn't a user checks if is a doctor
-            if (!$result) {
-                $result = $this->DB_Helper->getDoctorById($_SESSION['id']);
-                $_SESSION['contacts'] = $this->DB_Helper->getByUserId($result->getId(), 'Contact');
+            if (!$user_data) {
+                $user_data = $this->DB_Helper->getDoctorById($_SESSION['id']);
+                $_SESSION['contacts'] = $user_data->getContacts();
+
             }
 
             //Updates user data to the session
-            $_SESSION['user_data']=$result;
+            $_SESSION['user_data']=$user_data;
 
             //name used on the navBar (First Name)
-            $_SESSION['name']=explode(" ",$result->getName())[0];
+            $_SESSION['name']=explode(" ",$user_data->getName())[0];
 
             //Load page parts
             $this->load->view("navbar",getUserSessionDataArray());//get all data to display for the user/doctor
@@ -32,6 +37,7 @@ class Profile extends CI_Controller {
         }
         else
         {
+
             $this->load->view("header_login");
             $this->load->view('errors_notification', notification('You must be logged in to access this page','info','Login Needed: ',1000));
             $this->load->view("welcome");
@@ -42,7 +48,7 @@ class Profile extends CI_Controller {
     function do_upload()
     {
         checkSessionStart(); //check if user session has started, and if not start the session
-        if (isset($_SESSION['id'])) {
+        if (isset($_SESSION['user_data'])) {
             //Constant for all the photos
             $photo_url="_profile".$_SESSION['id'];
 

@@ -1,4 +1,4 @@
-<div class="page-name">Messages</div>
+<div class="page-name">Plan</div>
 <div class="container">
     <div class="row">
         <div class="col-lg-4 col-md-5 col-xs-12">

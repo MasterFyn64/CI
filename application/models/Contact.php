@@ -3,6 +3,7 @@
 class Contact extends CI_Model{
     private $person_id;
     private $number;
+    private $id;
 
 
     //get and set  functions for the contact
@@ -28,7 +29,5 @@ class Contact extends CI_Model{
     {
         return $this->number=$number;
     }
-    public function equals(){
 
-    }
 }

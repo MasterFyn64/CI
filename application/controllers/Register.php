@@ -4,13 +4,20 @@ class Register extends CI_Controller {
 
     public function index()
     {
-        session_start();
+        checkSessionStart(); //check if user session has started, and if not start the session
 
         if(isset($_SESSION['id']) && $_SESSION['user_type']=="Doctor")
         {
 
             $this->load->view("navbar",getUserSessionDataArray());
             $this->load->view("register");
+            $this->load->view("footer");
+        }
+        else if(!isset($_SESSION['id']))
+        {
+            $this->load->view("header_login");
+            $this->load->view('errors_notification', notification('You must be logged in to access this page','info','Login Needed: ',1000));
+            $this->load->view("welcome");
             $this->load->view("footer");
         }
         else

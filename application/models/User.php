@@ -21,14 +21,7 @@ class User extends Person{
     {
         return $this->id;
     }
-    public function setUsername($username)
-    {
-        $this->username = $username;
-    }
-    public function getUsername()
-    {
-        return $this->username;
-    }
+
     public function setName($name)
     {
         $this->name = $name;

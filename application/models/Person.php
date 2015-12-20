@@ -3,13 +3,13 @@
 
 abstract class Person extends CI_Model{
     protected $id;
-    protected $username;
     protected $name;
     protected $photo_url;
     protected $address;
     protected $birthdate;
     protected $password_hash;
     protected $email;
+    protected $contacts= array();
         
     // GET & SET
 
@@ -22,14 +22,19 @@ abstract class Person extends CI_Model{
         return $this->DB_Helper->getByUserId($this->id, "plan");
     }
     
-    public function getAppointments($type,$order_table=null,$order){
+    public function getAppointments($user_type){
 
-
-        return $this->DB_Helper->getByUserIdAndType($this->id, "appointment",$type,$order_table,$order);
+        return $this->DB_Helper->getClassById($this->id, "Appointment",$user_type);
     }
     
     public function getContacts(){
-        return $this->DB_Helper->getByUserId($this->id, "contact");
+
+        return $this->DB_Helper->getClassById($this->id,'Contact');
+    }
+
+    public function setContacts($contacts){
+
+      $this->contacts=$contacts;
     }
     
     // ---------------------------------- ADD PROPERTIES

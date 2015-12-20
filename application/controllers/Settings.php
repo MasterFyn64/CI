@@ -4,7 +4,7 @@ class Settings extends CI_Controller {
 
     public function index()
     {
-        session_start();
+        checkSessionStart(); //check if user session has started, and if not start the session
         if(isset($_SESSION['id']))
         {
             $this->load->view("navbar",getUserSessionDataArray());

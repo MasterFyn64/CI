@@ -34,11 +34,11 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-pages">
-                    <li><a href="<?=base_url()?>">New</a></li>
+                    <li><a data-toggle = "modal" data-target = "#appointments" href="">New</a></li>
                     <li><a href="<?=base_url()?>appointments">View all</a></li>
                 </ul>
             </li>
-            <li ><a href="#">Statistics</a></li>
+            <li ><a href="<?=base_url()?>statistics">Statistics</a></li>
 
             <!-- Messages dropdown-->
             <li class="dropdown">
@@ -46,7 +46,7 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-pages">
-                    <li><a href="<?=base_url()?>new">New</a></li>
+                    <li><a data-toggle = "modal" data-target = "#message" href="">New</a></li>
                     <li><a href="<?=base_url()?>messages">View All</a></li>
                 </ul>
             </li>
@@ -66,7 +66,7 @@
             }
 
             ?>
-            <li ><a href="#">Plan</a></li>
+            <li ><a href="<?=base_url()?>plan">Plan</a></li>
         </ul><!-- end of left navbar-->
         <!------------------------------right navbar---------------------------->
         <ul class="nav navbar-nav navbar-right">
@@ -95,5 +95,89 @@
 
     </div> <!-- navbar content end-->
 </div> <!-- close navbar-->
+
+
+
+
+<!-- pop-up for new appointment -->
+<div class = "modal fade" id = "appointments" tabindex = "-1" role = "dialog"
+     aria-labelledby = "myModalLabel" aria-hidden = "true">
+
+    <div class = "modal-dialog">
+        <div class = "modal-content">
+
+            <div class = "modal-header">
+                <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                    &times;
+                </button>
+
+                <h4 class = "modal-title" id = "myModalLabel">
+                    Book Appointment
+                </h4>
+            </div>
+
+            <div class = "modal-body text-left">
+                <p><label for="description">Description: </label>
+                    <input type="text" id="description" name="description"></p>
+                <p><label for="type">Type: </label>
+                    <input type="text" id="type" name="type"></p>
+                <p> <label for="date">Start Date: </label>
+                    <input type="date" id="date" name="date">
+                    <label for="hour">Hour: </label><input placeholder="10:45" type="text" id="hour" name="hour"></p>
+                <p ><label>Room Number: </label></p>
+            </div>
+
+            <div class = "modal-footer">
+                <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+                    Close
+                </button>
+
+                <button type = "button" class = "btn btn-primary">
+                    Submit changes
+                </button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+</div><!-- /.modal -->
+
+<!-- pop-up for new Message -->
+<div class = "modal fade" id = "message" tabindex = "-1" role = "dialog"
+     aria-labelledby = "myModalLabel" aria-hidden = "true">
+
+    <div class = "modal-dialog">
+        <div class = "modal-content">
+
+            <div class = "modal-header">
+                <button type = "button" class = "close" data-dismiss = "modal" aria-hidden = "true">
+                    &times;
+                </button>
+
+                <h4 class = "modal-title" id = "myModalLabel">
+                    New Message
+                </h4>
+            </div>
+
+            <div class = "modal-body text-left">
+                <p><label for="description">Subject: </label>
+                    <input type="text" id="subject" name="subject"></p>
+                    <textarea type="text" id="content" name="content"></textarea></p>
+            </div>
+
+            <div class = "modal-footer">
+                <button type = "button" class = "btn btn-default" data-dismiss = "modal">
+                    Close
+                </button>
+
+                <button type = "button" class = "btn btn-primary">
+                    Submit changes
+                </button>
+            </div>
+
+        </div><!-- /.modal-content -->
+    </div><!-- /.modal-dialog -->
+
+</div><!-- /.modal -->
 
 

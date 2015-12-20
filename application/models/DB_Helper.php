@@ -12,6 +12,45 @@ static $DOCTOR = "doctor";
  static  $EXERCISE = "exercise";
  static $COST_EXERCISE_INSTANCE = "exercise_instance";
 
+
+    //get user by id
+    public function getUserById($person_id){
+        $query = $this->db->query("SELECT * FROM user JOIN person ON person.id = user.person_id WHERE user.person_id=".$person_id);
+
+        $error = $this->db->error();
+        if($error['code']==0) //Check for any errors
+        {
+            if($query->num_rows()==1) // $query->row();
+            {
+                $_SESSION['user_type'] = 'User';
+                return $query->row(0, "User");
+            }
+        }
+        return null;
+    }
+
+    //get doctor by id
+    public function getDoctorById($person_id){
+        $query = $this->db->query("SELECT * FROM doctor JOIN person ON person.id = doctor.person_id WHERE doctor.person_id=".$person_id);
+
+        $error = $this->db->error();
+        if($error['code']==0) //Check for any errors
+        {
+            if ($query->num_rows() == 1) {
+                $_SESSION['user_type'] = 'Doctor';
+                return $query->row(0, "Doctor");
+            }
+        }
+
+        return null;
+    }
+
+    //---------------------------------------------- ** Users  **-----------------------------------------
+
+
+
+
+
     public function insertObject($table, $values)
     {
        /* public function insert($table, $values)
@@ -31,30 +70,7 @@ static $DOCTOR = "doctor";
         }
         return null;
     }
-    
-    // get objects by IDs
-    public function getByUserIdAndType($user_id, $table,$type,$order_table,$order){
 
-        $temp =strtoupper($type);
-       if($temp=="DOCTOR")
-       {
-           $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE doctor_id=".$user_id." ORDER BY ".$order_table." ".$order);
-       }
-        else
-            $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE user_id=".$user_id." ORDER BY ".$order_table." ".$order);
-
-
-        $item_array = array();
-
-        $error = $this->db->error();
-
-        if($error['code']==0) //Check for any errors
-        {
-
-            return $query->result_array();
-        }
-        return null;
-    }
 
     // get objects by IDs
     public function getByUserId($user_id, $table){
@@ -73,6 +89,71 @@ static $DOCTOR = "doctor";
         }
         return null;
     }
+
+    // get objects by IDs
+    public function getByUserIdAndType($user_id, $table,$type,$order_table,$order){
+
+        $temp =strtoupper($type);
+        if($temp=="DOCTOR")
+        {
+            $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE doctor_id=".$user_id." ORDER BY ".$order_table." ".$order);
+        }
+        else
+            $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE user_id=".$user_id." ORDER BY ".$order_table." ".$order);
+
+
+        $item_array = array();
+
+        $error = $this->db->error();
+
+        if($error['code']==0) //Check for any errors
+        {
+
+            return $query->result_array();
+        }
+        return null;
+    }
+
+    //Get class by person_id (Appointment , contact )
+    public function getClassById($person_id,$class,$user_type=null){
+
+        $result =  array();
+        if($user_type!=null)
+        {
+            if($user_type=="DOCTOR")
+                $query = $this->db->query("SELECT * FROM ".$class." WHERE doctor_id=".$person_id." ORDER BY date_hour DESC");
+            else
+                $query = $this->db->query("SELECT * FROM ".$class." WHERE user_id=".$person_id." ORDER BY date_hour DESC");
+        }
+        else
+        {
+            $query = $this->db->query("SELECT * FROM ".$class." WHERE person_id=".$person_id);
+        }
+
+
+        $error = $this->db->error();
+        if($error['code']==0) //Check for any errors
+        {
+            if ($query->num_rows() == 1)
+            {
+
+                return $query->row(0, $class);
+            }
+            else
+            {
+
+                foreach ($query->result($class) as $row)
+                {
+
+                    $result[] = $row;
+                }
+
+                return $result;
+            }
+        }
+        return null;
+    }
+
 
     //Get person by id
     public function getPersonById($person_id){
@@ -104,38 +185,6 @@ static $DOCTOR = "doctor";
             }
         }
         return false;
-    }
-
-    //get user by id
-    public function getUserById($person_id){
-        $query = $this->db->query("SELECT * FROM user JOIN person ON person.id = user.person_id WHERE user.person_id=".$person_id);
-
-        $error = $this->db->error();
-         if($error['code']==0) //Check for any errors
-        {
-            if($query->num_rows()==1) // $query->row();
-            {
-                $_SESSION['user_type'] = 'User';
-                return $query->row(0, "User");
-            }
-        }
-        return null;
-    }
-
-    //get docto by id
-    public function getDoctorById($person_id){
-        $query = $this->db->query("SELECT * FROM doctor JOIN person ON person.id = doctor.person_id WHERE doctor.person_id=".$person_id);
-
-        $error = $this->db->error();
-        if($error['code']==0) //Check for any errors
-        {
-            if ($query->num_rows() == 1) {
-                $_SESSION['user_type'] = 'Doctor';
-                return $query->row(0, "Doctor");
-            }
-        }
-
-        return null;
     }
 
 

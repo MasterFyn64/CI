@@ -15,7 +15,7 @@ class Appointments extends CI_Controller {
             $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $id));
 
             $this->load->view('navbar', getUserSessionDataArray());
-            $this->load->view('appointments', array("appointments" => $appointments, "user_type" => $user_type, "patients" => $patients));
+            $this->load->view('appointments', array("appointments" => $appointments, "patients" => $patients));
             $this->load->view('footer');
         }
         else

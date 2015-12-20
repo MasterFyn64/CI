@@ -1,4 +1,4 @@
-<div class="page-name">Appointments</div>
+<div class="page-name" id="appointment">Appointments</div>
 
 <div class="container">
     <div class="row">
@@ -19,15 +19,15 @@
             <?php
             $total =  count($patients);
 
-            if($user_type =="DOCTOR") {
+            if($user_type =="Doctor") {
                 ?>
                 <h2>Patients</h2>
-                <select class="form-control" size="<?= $total ?>" multiple="multiple">
+                <select class="form-control" size="<?= $total ?>" >
 
                     <?php
                     foreach ($patients as $patient) {
                         ?>
-                        <option value="<?= $patient['id'] ?>"><?= $patient['name'] ?></option>
+                        <option value="<?= $patient['id'] ?>" selected><?= $patient['name'] ?> </option>
                         <?php
                     }
                     ?>
@@ -85,7 +85,7 @@
                         $date = $temp[0];
                         $hour =$temp[1];
 
-                        if($user_type =="DOCTOR")
+                        if($user_type =="Doctor")
                         {
                         ?>
                             <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?= $count ?>">
@@ -93,7 +93,6 @@
                                     <button data-toggle="collapse" type="button" class="btn btn-default <?= $color ?>"
                                             data-parent="#main-container-messages" href="#messages-<?= $count ?>">
                                         <span class="glyphicon glyphicon-chevron-down"></span>
-                                        <span class="hidden" send-message-to=""></span>
                                     </button>
                                 </div>
 
@@ -122,12 +121,16 @@
                             <div id="messages-<?= $count ?>" class="collapse <?php if ($count == 0) echo " in" ?>">
                                 <div class="container-fluid">
                                     <div class="row">
+                                        <span class="hidden" id="send-message-to"><?=$id?></span>
                                         <div class=" well  col-lg-12  col-md-12  col-sm-12  col-xs-12  ">
                                             <div class="text-left">
                                                 <span><b>Description:</b></span>
-                                                <span class="edit-description"><?= $description ?></span>
-                                                <span id="edit-description"
-                                                      class="text-right glyphicon glyphicon-edit text-right"></span>
+                                                <span id="edit-description-<?= $count ?>">
+                                                    <span value="<?= $description ?>" id="description-<?= $count ?>"><?= $description ?></span>
+                                                    <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-description-<?= $count ?>" value="description-<?= $count ?>"></span>
+                                                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-description-<?= $count ?>" value="description-<?= $count ?>" id="save"></span>
+                                                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-description-<?= $count ?>" value="description-<?= $count ?>" id="remove"></span>
+                                                </span>
                                             </div>
                                         </div>
 
@@ -136,18 +139,34 @@
                                         <div class=" well col-lg-6  col-md-6 col-sm-6  col-xs-12 ">
                                             <div class="text-left ">
                                                 <span><b>Private notes:</b></span>
-                                                <span class="edit-private-notes"><?= $private_note ?></span>
-                                                <span class="text-right glyphicon glyphicon-edit text-right"></span>
+                                                <span id="edit-private_note-<?= $count ?>">
+                                                    <span value="<?= $private_note ?>" id="private_note-<?= $count ?>"><?= $private_note ?></span>
+                                                    <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-private_note-<?= $count ?>" value="private_note-<?= $count ?>"></span>
+                                                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-private_note-<?= $count ?>" value="private_note-<?= $count ?>" id="save"></span>
+                                                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-private_note-<?= $count ?>" value="private_note-<?= $count ?>" id="remove"></span>
+                                                </span>
                                             </div>
                                         </div>
                                         <div class="well  col-xs-12 col-lg-6  col-md-6 col-sm-6">
                                             <div class="text-left ">
                                                 <span><b>Public notes:</b></span>
-                                                <span class="edit-private-public"><?= $public_note ?></span>
-                                                <span class="text-right glyphicon glyphicon-edit text-right"></span>
+                                                <span id="edit-public_note-<?= $count ?>">
+                                                    <span value="<?= $public_note ?>" id="public_note-<?= $count ?>"><?= $public_note ?></span>
+                                                    <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-public_note-<?= $count ?>" value="public_note-<?= $count ?>"></span>
+                                                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-public_note-<?= $count ?>" value="public_note-<?= $count ?>" id="save"></span>
+                                                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-public_note-<?= $count ?>" value="public_note-<?= $count ?>" id="remove"></span>
+                                                </span>
                                             </div>
                                         </div>
-
+                                        <div class=" well  col-lg-12  col-md-12  col-sm-12  col-xs-12  ">
+                                            <div class="text-left">
+                                                <p><span><b>Sate:</b></span>
+                                                Pending <input type="radio" name="state-<?= $count ?>" id="state-<?= $count ?>" value="pending" <?php if($state=="PEND") echo"checked";?>>
+                                                Done <input type="radio" name="state-<?= $count ?>" id="state-<?= $count ?>" value="done" <?php if($state=="DONE") echo"checked";?>>
+                                                Cancelled <input type="radio" name="state-<?= $count ?>" id="state-<?= $count ?>" value="cancelled" <?php if($state=="CANC") echo"checked";?>>
+                                                </p>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </div> <!-- End of collapsed information-->

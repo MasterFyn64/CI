@@ -1,5 +1,5 @@
 <!-- profile body -->
-<div class="page-name">Profile</div>
+<div class="page-name" id="profile">Profile</div>
 <div class="container">
    <div class="row">
        <!-- profile image and the form to upload new profile image-->
@@ -79,7 +79,7 @@
                               echo $contact->getNumber()."&nbsp;&nbsp;";
                       }
                        else
-                       echo $contacts->getNumber();
+                       echo $contact->getNumber();
                    ?>
                </span></a>
            </div>

@@ -1,5 +1,88 @@
 $(document).ready(function() {
 
+
+
+//--------------------------------Appointments book--------------------
+
+
+    $('button[id="submit-book"]').click(function()
+    {
+        //in case of doctor
+        var user_id = $('select option:selected').attr('value');
+
+        var date_value =$('input[id="book-date"]').val();
+        var date =$('input[id="book-date"]');
+        var hour_value =$('input[id="book-hour"]').val();
+        var hour =$('input[id="book-hour"]');
+        var description_value =$('input[id="book-description"]').val();
+        var description =$('input[id="book-description"]');
+        var type_value =$('input[id="book-type"]').val();
+        var type =$('input[id="book-type"]');
+        var errors="";
+        var show_errors=$('p[id="book-errors"]');
+
+
+        var s = ["hour", "date", "type","description"];
+        var fields=[hour,date,type,description];
+        var values=[hour_value,date_value,type_value,description_value];
+
+        if(date_value==""||hour_value==""||description_value==""||type_value=="")
+        {
+            for(var i=0;i<4;i++)
+            {
+                if(values[i]=="")
+                {
+                    errors+="Please insert the "+s[i]+"!<br/>";
+                    fields[i].parent().attr('class',"form-group has-error");
+                    fields[i].focus();
+                }
+                else
+                    fields[i].parent().attr('class',"form-group");
+
+            }
+
+            show_errors.html(errors);
+        }
+        else
+        {
+            $.post("/CI/api/book",
+                {
+                    date: date_value,
+                    hour:hour_value,
+                    description: description_value,
+                    type:type_value,
+                    user_id: user_id
+                },
+                function(data, status){
+                    if(data!="SUCCESS")
+                    {
+                        show_errors.html(data);
+                    }
+                    else
+                    {
+                        //Reset pop-up
+                        var close = $('#submit-book');
+                        for(var i=0;i<4;i++) {
+                            fields[i].val("");
+                            show_errors.html("");
+                            fields[i].parent().attr('class',"form-group");
+                        }
+                        //Change data-dismiss to be able to close pop-up and trigger click to close it
+                        close.attr("data-dismiss","modal").trigger('click');
+                        close.attr("data-dismiss","");
+                        location.reload();
+
+                    }
+                });
+        }
+
+
+    });
+//-----------------------------------End appointment BOOK------------
+
+
+
+
     $('button[id="search-appointments"]').click(function()
     {
 
@@ -43,12 +126,6 @@ $(document).ready(function() {
 
     });
 
-    //Edit appointments
-    $('span[id="edit-description"]').click(function()
-    {
-        var old_values = $(this).parent().find('span[class="edit-description"]').html();
-        $(this).parent().find('span[class="edit-description"]').attr('contenteditable',"true").focus();
-    });
 
     /*---------------------------------------------Start of add contacts-------------------------------------------------*/
     //variable that counts how many contacts where added
@@ -112,7 +189,8 @@ $(document).ready(function() {
 
     //Save profile information and send notification with errors made
     $('span[id="save"]').click(function(e){
-       var  edit_link = $(e.target);
+
+        var  edit_link = $(e.target);
         var field_name= edit_link.attr('value');
         $('span[id="'+field_name+'"]').attr('contenteditable',false);
         var changed_value=$('span[id="'+field_name+'"]').html();
@@ -122,8 +200,45 @@ $(document).ready(function() {
 
         var error=false;
         message_notification=message_type=message_title=message_delay="";
+
+
+        //needed to update appointments information
+        var message_id=  $(this).parent().parent().parent().parent().children('span[id="send-message-to"]').html();
+        var data_value=  $('.page-name').attr('id');
+
         switch (field_name) //checks what field will be updated
         {
+
+            case 'description':
+            {
+                if(!changed_value.match(/^[a-zA-Z ]+$/)) {
+                    error = true;
+                    message_notification="Insert a correct description!";
+                    message_type="info";
+                    message_title="Invalid Description:";
+                    message_delay=2000;
+                }
+            }break;
+            case 'private_note':
+            {
+                if(!changed_value.match(/^[a-zA-Z1-9 ]+$/)) {
+                    error = true;
+                    message_notification="Insert a correct note!";
+                    message_type="info";
+                    message_title="Invalid Note:";
+                    message_delay=2000;
+                }
+            }break;
+            case 'public_note':
+            {
+                if(!changed_value.match(/^[a-zA-Z1-9 ]+$/)) {
+                    error = true;
+                    message_notification="Insert a correct note!";
+                    message_type="info";
+                    message_title="Invalid Note:";
+                    message_delay=2000;
+                }
+            }break;
             case 'address':{
                 if(!changed_value.match(/^[a-zA-Z1-9 ]+$/)) {
                     error = true;
@@ -172,13 +287,15 @@ $(document).ready(function() {
             $('span[id="'+field_name+'"]').attr('value', changed_value); // update data
 
             //updates database
-            $.post("/CI/api/saveData",
+            $.post("/CI/api/updatedata",
                 {
                     value: changed_value,
                     property:field_name,
+                    changing:message_id,
+                    fromwhere:data_value //from where should be updated
                 },
                 function(data, status){
-                    console.log("Data: " + data + "\nStatus: " + status);
+                   console.log(data);
                 });
         }
         else

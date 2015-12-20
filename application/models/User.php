@@ -4,6 +4,8 @@ require_once __DIR__.'/Person.php';
 
 class User extends Person{
 
+    private $doctor_id;
+
     public function setEmail($email)
     {
         $this->email = $email;
@@ -11,6 +13,14 @@ class User extends Person{
     public function getEmail()
     {
         return $this->email;
+    }
+    public function setDoctorId($doctor_id)
+    {
+        $this->doctor_id = $doctor_id;
+    }
+    public function getDoctorId()
+    {
+        return $this->doctor_id;
     }
 
     public function setId($id)

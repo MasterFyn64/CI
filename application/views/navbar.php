@@ -117,25 +117,49 @@
             </div>
 
             <div class = "modal-body text-left">
-                <p><label for="description">Description: </label>
-                    <input type="text" id="description" name="description"></p>
-                <p><label for="type">Type: </label>
-                    <input type="text" id="type" name="type"></p>
-                <p> <label for="date">Start Date: </label>
-                    <input type="date" id="date" name="date">
-                    <label for="hour">Hour: </label><input placeholder="10:45" type="text" id="hour" name="hour"></p>
-                <p ><label>Room Number: </label></p>
+                <div class="form-group ">
+                    <label class="control-label" for="book-description">Description</label>
+                    <input type="text" class="form-control" id="book-description">
+                </div>
+
+                <div class="form-group ">
+                    <label class="control-label" for="book-type">Type</label>
+                    <input type="text" class="form-control" id="book-type">
+                </div>
+                <div class="form-group ">
+                    <label class="control-label" for="book-date">Date</label>
+                    <input type="date" placeholder="10:45" class="form-control" id="book-date">
+                </div>
+                <div class="form-group ">
+                    <label class="control-label" for="book-hour">Hour</label>
+                    <input type="text" placeholder="10:45" class="form-control" id="book-hour">
+                </div>
+                <?php if($user_type=="Doctor")
+                {
+                    ?>
+                    <p ><label id="book-number">Room Number: </label><?=$room_number?></p>
+                    <p class="text-danger" id="book-errors"> </p>
+                <?php
+                }
+                ?>
+
             </div>
+
 
             <div class = "modal-footer">
-                <button type = "button" class = "btn btn-default" data-dismiss = "modal">
-                    Close
-                </button>
-
-                <button type = "button" class = "btn btn-primary">
-                    Submit changes
+                <button type = "button" id="submit-book" data-dismiss="" class = "btn btn-primary" >
+                    <?php if($user_type=="Doctor")
+                    {
+                        echo "Book";
+                    }
+                    else
+                    {
+                        echo "Ask for Appointment";
+                    }
+                    ?>
                 </button>
             </div>
+
 
         </div><!-- /.modal-content -->
     </div><!-- /.modal-dialog -->

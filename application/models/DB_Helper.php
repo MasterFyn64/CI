@@ -147,7 +147,6 @@ static $DOCTOR = "doctor";
 
                     $result[] = $row;
                 }
-
                 return $result;
             }
         }

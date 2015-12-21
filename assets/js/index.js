@@ -1,6 +1,72 @@
 $(document).ready(function() {
 
 
+    $('input[name^="state-"]').click(function()
+    {
+        var name= $(this).attr('name');
+        var values = name.split("-");
+        var number = values[1];
+        var bar = "header-messages-"+number;
+        var state =$(this).attr('value');
+
+        var message_id=  $('div[id="'+bar+'"]').attr("send-message-to");
+
+        if(state=="pending"||state=="done"||state=="cancelled"||state=="waiting")
+        {
+            if(state=="pending")
+            {
+                $('div[id="'+bar+'"]').children().each(function(){
+                    $(this).children().attr('class','btn btn-default btn-warning');
+                });
+                $('div[id="'+bar+'"]').children().each(function(){
+                    $(this).children('input').attr('class','btn btn-default btn-warning');
+
+                });
+                $('input[id^="state-messages-"]').val('PEND');
+            }
+            else if(state=="done")
+            {
+                $('div[id="'+bar+'"]').children().each(function(){
+                   $(this).children().attr('class','btn btn-default btn-success');
+                });
+                $('div[id="'+bar+'"]').children().each(function(){
+                    $(this).children('input').attr('class','btn btn-default btn-success');
+                });
+                $('input[id^="state-messages-"]').val('DONE');
+            }
+            else if(state=="cancelled")
+            {
+                $('div[id="'+bar+'"]').children().each(function(){
+                    $(this).children().attr('class','btn btn-default btn-danger');
+                });
+                $('div[id="'+bar+'"]').children().each(function(){
+                    $(this).children('input').attr('class','btn btn-default btn-danger');
+                });
+                $('input[id^="state-messages-"]').val('CANC');
+            }
+            else if(state=="waiting")
+            {
+                $('div[id="'+bar+'"]').children().each(function(){
+                    $(this).children('button').attr('class','btn btn-default btn-primary disabled');
+                });
+                $('div[id="'+bar+'"]').children().each(function(){
+                    $(this).children('input').attr('class','btn btn-default btn-primary disabled');
+                });
+                $('input[id^="state-messages-"]').val('WAIT');
+            }
+
+            $.post('/CI/Api/updatestate',
+                {
+                    changing:message_id,
+                    newstate:state
+                },
+                function(data,status)
+                {
+                    //
+                }
+            );
+        }
+    });
 
 //--------------------------------Appointments book--------------------
 

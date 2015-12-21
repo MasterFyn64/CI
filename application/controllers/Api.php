@@ -103,7 +103,6 @@ class Api extends CI_Controller {
         $type = $_POST['type'];
         $date = $_POST['date'];
         $hour = $_POST['hour'];
-        $user_id= $_POST['user_id'];
 
 
         $error ="";
@@ -161,11 +160,27 @@ class Api extends CI_Controller {
             }
             else
             {
-                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$user_id,"doctor_id"=>$user_data->getId(),"state"=>"pending","type"=>$type,"private_note"=>"","public_note"=>""));
+                $user_id= $_POST['user_id'];
+                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$user_id,"doctor_id"=>$user_data->getId(),"state"=>"waiting","type"=>$type,"private_note"=>"","public_note"=>""));
             }
 
 
             echo "SUCCESS";
         }
+    }
+
+    public function updatestate()
+    {
+        $new_state= $_POST['newstate'];
+        $id= $_POST['changing'];
+
+        if(!empty($new_state)&&($new_state=="pending"||$new_state=="waiting"||$new_state=="done"||$new_state=="cancelled"))
+        {
+            $this->DB_Helper->update('appointment',array("state"=>$new_state),array('id'=>$id));
+            echo "SUCCESS";
+            die();
+        }
+        echo "ERROR";
+
     }
 }

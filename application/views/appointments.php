@@ -103,7 +103,7 @@
                                     <div class="btn-group"><input type="button" id="type"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $type ?>"></div>
-                                    <div class="btn-group"><input type="button" id="state-messages-<?$count?>"
+                                    <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $state ?>"></div>
                                     <div class="btn-group"><input type="button" id="date-messages"
@@ -280,9 +280,9 @@
                         if($user_type =="Doctor")
                         {
                             ?>
-                            <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?= $count ?>">
+                            <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?=$count ?>">
                                 <div class="btn-group">
-                                    <button data-toggle="collapse" type="button" class="btn btn-default <?= $color ?>"
+                                    <button data-toggle="collapse" type="button" class="btn btn-default <?=$color ?>"
                                             data-parent="#main-container-messages" href="#messages-<?= $count ?>">
                                         <span class="glyphicon glyphicon-chevron-down"></span>
                                     </button>
@@ -383,7 +383,7 @@
                                 <div class="btn-group"><input type="button" id="type"
                                                               class="btn btn-default <?= $color ?>"
                                                               value="<?= $type ?>"></div>
-                                <div class="btn-group"><input type="button" id="state-messages-<?$count?>"
+                                <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
                                                               class="btn btn-default <?= $color ?>"
                                                               value="<?= $state ?>"></div>
                                 <div class="btn-group"><input type="button" id="date-messages"

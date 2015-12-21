@@ -22,7 +22,7 @@ $(document).ready(function() {
                     $(this).children('input').attr('class','btn btn-default btn-warning');
 
                 });
-                $('input[id^="state-messages-"]').val('PEND');
+                $('input[id="state-messages-'+number+'"]').val('PEND');
             }
             else if(state=="done")
             {
@@ -32,7 +32,7 @@ $(document).ready(function() {
                 $('div[id="'+bar+'"]').children().each(function(){
                     $(this).children('input').attr('class','btn btn-default btn-success');
                 });
-                $('input[id^="state-messages-"]').val('DONE');
+                $('input[id="state-messages-'+number+'"]').val('DONE');
             }
             else if(state=="cancelled")
             {
@@ -42,7 +42,7 @@ $(document).ready(function() {
                 $('div[id="'+bar+'"]').children().each(function(){
                     $(this).children('input').attr('class','btn btn-default btn-danger');
                 });
-                $('input[id^="state-messages-"]').val('CANC');
+                $('input[id="state-messages-'+number+'"]').val('CANC');
             }
             else if(state=="waiting")
             {
@@ -52,7 +52,7 @@ $(document).ready(function() {
                 $('div[id="'+bar+'"]').children().each(function(){
                     $(this).children('input').attr('class','btn btn-default btn-primary disabled');
                 });
-                $('input[id^="state-messages-"]').val('WAIT');
+                $('input[id="state-messages-'+number+'"]').val('WAIT');
             }
 
             $.post('/CI/Api/updatestate',

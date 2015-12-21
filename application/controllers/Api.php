@@ -156,12 +156,12 @@ class Api extends CI_Controller {
 
             if($_SESSION['user_type']!="Doctor")
             {
-                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$_SESSION['id'],"doctor_id"=>$user_data->getDoctorId(),"state"=>"pending","type"=>$type,"private_note"=>"","public_note"=>""));
+                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$_SESSION['id'],"doctor_id"=>$user_data->getDoctorId(),"state"=>"waiting","type"=>$type,"private_note"=>"","public_note"=>""));
             }
             else
             {
                 $user_id= $_POST['user_id'];
-                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$user_id,"doctor_id"=>$user_data->getId(),"state"=>"waiting","type"=>$type,"private_note"=>"","public_note"=>""));
+                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$user_id,"doctor_id"=>$user_data->getId(),"state"=>"pending","type"=>$type,"private_note"=>"","public_note"=>""));
             }
 
 

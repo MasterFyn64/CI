@@ -23,11 +23,11 @@ if ( ! function_exists('getUserSessionData'))
         $user_data=$_SESSION['user_data'];
         $user_type=strtoupper(get_class($user_data));
 
-        if($user_type=='Doctor')
+        if($user_type=='DOCTOR')
         {
             $data= ['user_type'=>$user_type,'name'=>$user_data->getName(),'photo_url'=>$user_data->getPhotoUrl(),'room_number'=>$user_data->getRoomNumber(),'address'=>$user_data->getAddress(),'birthdate'=>$user_data->getBirthdate(),'photo_url'=>$user_data->getPhotoUrl(),'contacts'=>$_SESSION['contacts'],'room_number'=>$user_data->getRoomNumber(),'email'=>$user_data->getEmail()];
         }
-        else
+        else if ($user_type=='USER')
         {
             $data= ['user_type'=>$user_type,'name'=>$user_data->getName(),'photo_url'=>$user_data->getPhotoUrl(),'room_number'=>"",'address'=>$user_data->getAddress(),'birthdate'=>$user_data->getBirthdate(),'photo_url'=>$user_data->getPhotoUrl(),'contacts'=>$_SESSION['contacts'],'email'=>$user_data->getEmail()];
         }

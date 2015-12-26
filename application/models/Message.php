@@ -11,8 +11,25 @@ class Message extends CI_Model
     protected $read_doctor;
     protected $read_user;
     protected $name;
+    protected $from;
 
-    public function setInformation($read_doctor,$read_user,$text,$subject,$date_hour,$doctor_id,$user_id)
+    /**
+     * @return mixed
+     */
+    public function getFrom()
+    {
+        return $this->from;
+    }
+
+    /**
+     * @param mixed $from
+     */
+    public function setFrom($from)
+    {
+        $this->from = $from;
+    }
+
+    public function setInformation($read_doctor,$read_user,$text,$subject,$date_hour,$doctor_id,$user_id,$from)
     {
         $this->date_hour=$date_hour;
         $this->text=$text;
@@ -21,6 +38,7 @@ class Message extends CI_Model
         $this->subject=$subject;
         $this->read_doctor=$read_doctor;
         $this->read_user=$read_user;
+        $this->from=$from;
     }
     /**
      * @return mixed
@@ -168,7 +186,7 @@ class Message extends CI_Model
 
     public function getArray()
     {
-        return array('date_hour'=>$this->date_hour,'text'=>$this->text,'doctor_id'=>$this->doctor_id,'user_id'=>$this->user_id,'subject'=>$this->subject,'read_doctor'=>$this->read_doctor,'read_user'=>$this->read_user);
+        return array('date_hour'=>$this->date_hour,'text'=>$this->text,'doctor_id'=>$this->doctor_id,'user_id'=>$this->user_id,'subject'=>$this->subject,'read_doctor'=>$this->read_doctor,'read_user'=>$this->read_user,'from'=>$this->from);
     }
 
 }

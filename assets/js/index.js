@@ -70,6 +70,10 @@ $(document).ready(function() {
 
 //-------------------------------Send Message-------------------------
     $('button[id="send-message"]').click(function() {
+        //esc key
+        var esc = jQuery.Event("keydown");
+        esc.which = 27;
+
         //in case of doctor
         var user_ids= [];
         var doctor_id;
@@ -92,13 +96,15 @@ $(document).ready(function() {
                 user_ids: user_ids
             },
             function(data, status){
-                console.log(data);
                     if(data=="ids_error")
                     {
                         message_notification="Select one patient!";
                         message_type="info";
                         message_title="Patients Error:";
                         message_delay=2000;
+                        var close = $('#send-message');
+                        close.attr("data-dismiss","modal").trigger(esc);
+                        close.attr("data-dismiss","");
                         notify(message_notification,message_type,message_title,message_delay);
                     }
                     else if(data=="fields_error")
@@ -107,7 +113,24 @@ $(document).ready(function() {
                         message_type="info";
                         message_title="Message:";
                         message_delay=2000;
+                        var close = $('#send-message');
+                        close.attr("data-dismiss","modal").trigger(esc);
+                        close.attr("data-dismiss","");
                         notify(message_notification,message_type,message_title,message_delay);
+                    }
+                     else
+                    {
+
+                        //Reset pop-up
+                        var close = $('#send-message');
+                        for(var i=0;i<2;i++) {
+                            fields[i].val("");
+                            fields[i].parent().attr('class',"form-group");
+                        }
+                        //Change data-dismiss to be able to close pop-up and trigger click to close it
+                        close.attr("data-dismiss","modal").trigger(esc);
+                        close.attr("data-dismiss","");
+                        location.reload();
                     }
 
 
@@ -139,7 +162,7 @@ $(document).ready(function() {
                },
                function(data,status)
                {
-                   console.log(data);
+                   //
                });
 
        }
@@ -151,6 +174,10 @@ $(document).ready(function() {
 
     $('button[id="submit-book"]').click(function()
     {
+        //esc key
+        var esc = jQuery.Event("keydown");
+        esc.which = 27;
+
         //in case of doctor
         var user_id = $('select option:selected').attr('value');
 
@@ -198,8 +225,22 @@ $(document).ready(function() {
                     user_id: user_id
                 },
                 function(data, status){
-                    console.log(data);
-                    if(data!="SUCCESS")
+                    if(data=="id_error")
+                    {
+                        message_notification="Select one patient!";
+                        message_type="info";
+                        message_title="Patients Error:";
+                        message_delay=2000;
+
+                        var close = $('#submit-book');
+                        //Change data-dismiss to be able to close pop-up and trigger click to close it
+                        close.attr("data-dismiss","modal").trigger(esc);
+                        close.attr("data-dismiss","");
+
+                        notify(message_notification,message_type,message_title,message_delay);
+
+                    }
+                    else if(data!="SUCCESS")
                     {
                         show_errors.html(data);
                     }
@@ -213,7 +254,7 @@ $(document).ready(function() {
                             fields[i].parent().attr('class',"form-group");
                         }
                         //Change data-dismiss to be able to close pop-up and trigger click to close it
-                        close.attr("data-dismiss","modal").trigger('click');
+                        close.attr("data-dismiss","modal").trigger(esc);
                         close.attr("data-dismiss","");
                         location.reload();
 
@@ -236,12 +277,11 @@ $(document).ready(function() {
            if(date>=message_date) {
                if(date==message_date && hour<=message_hour) //check if the day is the same as message and compare with hour
                {
-                   console.log(message_hour+" "+hour);
+                  // console.log(message_hour+" "+hour); Check information
                    $(this).parent().parent().attr('class', "btn-group btn-group-lg btn-group-justified visible");
                    var search_content = $(this).parent().parent().attr('id');
                    var temp =search_content.split("-");
                    var search = "messages-"+temp[2].toString();
-                   console.log(search);
                    $('div[id='+search+']').attr("class","collapse visible")
                }
               else
@@ -436,7 +476,7 @@ $(document).ready(function() {
                     fromwhere:data_value //from where should be updated
                 },
                 function(data, status){
-                   console.log(data);
+                   //
                 });
         }
         else

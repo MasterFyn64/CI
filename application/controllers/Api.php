@@ -155,17 +155,23 @@ class Api extends CI_Controller {
                 $appointment->setInformation($description,$date." ".$hour,$_SESSION['id'],$user_data->getDoctorId(),"","","waiting",$type);
                 $appointment = $appointment->getArray();
                 $user_data->addAppointment($appointment);
+                echo "SUCCESS";
             }
             else
             {
-                $user_id= $_POST['user_id'];
-                $appointment  = new Appointment();
-                $appointment->setInformation($description,$date." ".$hour,$user_id,$user_data->getId(),"","","pending",$type);
-                $appointment = $appointment->getArray();
-                $user_data->addAppointment($appointment);
+                if(isset($_POST['user_id']))
+                {
+                    $user_id= $_POST['user_id'];
+                    $appointment  = new Appointment();
+                    $appointment->setInformation($description,$date." ".$hour,$user_id,$user_data->getId(),"","","pending",$type);
+                    $appointment = $appointment->getArray();
+                    $user_data->addAppointment($appointment);
+                    echo "SUCCESS";
+                }
+                else
+                    echo "id_error";
             }
 
-            echo "SUCCESS";
         }
     }
 
@@ -202,7 +208,7 @@ class Api extends CI_Controller {
                     for($i=0;$i<count($user_ids);$i++)
                     {
                         $message  = new Message();
-                        $message->setInformation(1,0,$content,$subject,$date_hour,$user_data->getId(),$user_ids[$i]);
+                        $message->setInformation(1,0,$content,$subject,$date_hour,$user_data->getId(),$user_ids[$i],"DOCTOR");
                         $message = $message->getArray();
                         $user_data->addMessage($message);
                     }
@@ -210,7 +216,7 @@ class Api extends CI_Controller {
                 else if ($user_type=="USER")
                 {
                     $message  = new Message();
-                    $message->setInformation(0,1,$content,$subject,$date_hour,$user_data->getDoctorId(),$user_data->getId());
+                    $message->setInformation(0,1,$content,$subject,$date_hour,$user_data->getDoctorId(),$user_data->getId(),"USER");
                     $message = $message->getArray();
                     $user_data->addMessage($message);
                 }

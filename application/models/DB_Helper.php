@@ -46,10 +46,6 @@ static $DOCTOR = "doctor";
 
     //---------------------------------------------- ** Users  **-----------------------------------------
 
-
-
-
-
     public function insertObject($table, $values)
     {
         $this->db->insert($table,$values);
@@ -129,8 +125,8 @@ static $DOCTOR = "doctor";
         {
             if ($query->num_rows() == 1)
             {
-
-                return $query->row(0, $class);
+                $result[] =$query->row(0, $class);
+                return  $result;
             }
             else
             {

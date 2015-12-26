@@ -34,7 +34,14 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-pages">
-                    <li><a data-toggle = "modal" data-target = "#appointments" href="">New</a></li>
+                    <?php if($user_type!="DOCTOR")
+                    {
+                        ?>
+                        <li><a data-toggle = "modal" data-target = "#appointments" href="">New</a></li>
+                        <?php
+                    }
+                    ?>
+
                     <li><a href="<?=base_url()?>appointments">View all</a></li>
                 </ul>
             </li>
@@ -46,7 +53,13 @@
                     <span class="caret"></span>
                 </a>
                 <ul class="dropdown-menu dropdown-menu-pages">
-                    <li><a data-toggle = "modal" data-target = "#message" href="">New</a></li>
+                    <?php if($user_type!="DOCTOR")
+                    {
+                        ?>
+                        <li><a data-toggle = "modal" data-target = "#message" href="">New</a></li>
+                    <?php
+                    }
+                    ?>
                     <li><a href="<?=base_url()?>messages">View All</a></li>
                 </ul>
             </li>
@@ -148,7 +161,7 @@
 
             <div class = "modal-footer">
                 <button type = "button" id="submit-book" data-dismiss="" class = "btn btn-primary" >
-                    <?php if($user_type=="Doctor")
+                    <?php if($user_type=="DOCTOR")
                     {
                         echo "Book";
                     }

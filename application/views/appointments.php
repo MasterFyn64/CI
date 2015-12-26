@@ -27,7 +27,7 @@
                     <?php
                     foreach ($patients as $patient) {
                         ?>
-                        <option value="<?= $patient['id'] ?>" selected><?= $patient['name'] ?> </option>
+                        <option value="<?= $patient['id'] ?>"><?= $patient['name'] ?> </option>
                         <?php
                     }
                     ?>
@@ -46,7 +46,11 @@
                     <?php
                     $count =0;
 
-                    if(is_array($appointments))  //if is more than one appointment
+                    if(empty($appointments))
+                    {
+                        echo "<div class='text-center'>You don't have any messages!</div>";
+                    }
+                    else
                     {
                         foreach($appointments as $appointment)
                         {
@@ -113,7 +117,7 @@
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $hour ?>"></div>
                                     <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
-                                                                  value="Room"></div>
+                                                                  value="<?=$room_number?>"></div>
                                     <div class="btn-group">
                                         <button type="button" class="btn btn-default <?= $color ?>">
                                             <span class="glyphicon glyphicon-envelope"></span>
@@ -241,191 +245,6 @@
                             }
                             $count++;
                         }
-                    }
-                    else //if is just one one appointment
-                    {
-                        //Color and states
-                        $state =$appointments->getState();
-                        $color="btn-primary";
-                        if($state=="cancelled") {
-                            $color = "btn-danger";
-                            $state= "CANC";
-                        }
-                        else if ($state=="done"){
-                            $color ="btn-success";
-                            $state= "DONE";
-                        }
-                        else
-                        {
-                            $color ="btn-warning";
-                            $state= "PEND";
-                        }
-
-
-                        //Other information about the appointment
-                        $id=  $appointments->getId();
-                        $description= $appointments->getDescription();
-                        $doctor_id =  $appointments->getDoctorId();
-                        $user_id =  $appointments->getUserId();
-                        $private_note =  $appointments->getPrivateNote();
-                        $public_note =  $appointments->getPublicNote();
-                        $temp =  $appointments->getDateHour();
-                        $type =  $appointments->getType();
-
-                        //Separate hour and date
-                        $temp = explode(' ',$temp);
-                        $date = $temp[0];
-                        $hour =$temp[1];
-
-                        if($user_type =="DOCTOR")
-                        {
-                            ?>
-                            <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?=$count ?>">
-                                <div class="btn-group">
-                                    <button data-toggle="collapse" type="button" class="btn btn-default <?=$color ?>"
-                                            data-parent="#main-container-messages" href="#messages-<?= $count ?>">
-                                        <span class="glyphicon glyphicon-chevron-down"></span>
-                                    </button>
-                                </div>
-
-                                <div class="btn-group"><input type="button" id="type"
-                                                              class="btn btn-default <?= $color ?>"
-                                                              value="<?= $type ?>"></div>
-                                <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
-                                                              class="btn btn-default <?= $color ?>"
-                                                              value="<?= $state ?>"></div>
-                                <div class="btn-group"><input type="button" id="date-message"
-                                                              class="date btn btn-default <?= $color ?>"
-                                                              value="<?= $date ?>"></div>
-                                <div class="btn-group"><input type="button" id="hour-message"
-                                                              class="btn btn-default <?= $color ?>"
-                                                              value="<?= $hour ?>"></div>
-                                <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
-                                                              value="Room"></div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default <?= $color ?>">
-                                        <span class="glyphicon glyphicon-envelope"></span>
-                                    </button>
-                                </div>
-
-                            </div>
-
-                            <div id="messages-<?= $count ?>" class="collapse <?php if ($count == 0) echo " in" ?>">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <span class="hidden" id="send-message-to"><?=$id?></span>
-                                        <div class=" well  col-lg-12  col-md-12  col-sm-12  col-xs-12  ">
-                                            <div class="text-left">
-                                                <span><b>Description:</b></span>
-                                                        <span id="edit-description-<?= $count ?>">
-                                                            <span value="<?= $description ?>" id="description-<?= $count ?>"><?= $description ?></span>
-                                                            <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-description-<?= $count ?>" value="description-<?= $count ?>"></span>
-                                                            <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-description-<?= $count ?>" value="description-<?= $count ?>" id="save"></span>
-                                                            <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-description-<?= $count ?>" value="description-<?= $count ?>" id="remove"></span>
-                                                        </span>
-                                            </div>
-                                        </div>
-
-                                        <h3>Notes</h3>
-
-                                        <div class=" well col-lg-6  col-md-6 col-sm-6  col-xs-12 ">
-                                            <div class="text-left ">
-                                                <span><b>Private notes:</b></span>
-                                                        <span id="edit-private_note-<?= $count ?>">
-                                                            <span value="<?= $private_note ?>" id="private_note-<?= $count ?>"><?= $private_note ?></span>
-                                                            <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-private_note-<?= $count ?>" value="private_note-<?= $count ?>"></span>
-                                                            <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-private_note-<?= $count ?>" value="private_note-<?= $count ?>" id="save"></span>
-                                                            <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-private_note-<?= $count ?>" value="private_note-<?= $count ?>" id="remove"></span>
-                                                        </span>
-                                            </div>
-                                        </div>
-                                        <div class="well  col-xs-12 col-lg-6  col-md-6 col-sm-6">
-                                            <div class="text-left ">
-                                                <span><b>Public notes:</b></span>
-                                                        <span id="edit-public_note-<?= $count ?>">
-                                                            <span value="<?= $public_note ?>" id="public_note-<?= $count ?>"><?= $public_note ?></span>
-                                                            <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-public_note-<?= $count ?>" value="public_note-<?= $count ?>"></span>
-                                                            <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-public_note-<?= $count ?>" value="public_note-<?= $count ?>" id="save"></span>
-                                                            <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-public_note-<?= $count ?>" value="public_note-<?= $count ?>" id="remove"></span>
-                                                        </span>
-                                            </div>
-                                        </div>
-                                        <div class=" well  col-lg-12  col-md-12  col-sm-12  col-xs-12  ">
-                                            <div class="text-left">
-                                                <p><span><b>Sate:</b></span>
-                                                    Pending <input type="radio" name="state-<?= $count ?>" id="state-<?= $count ?>" value="pending" <?php if($state=="PEND") echo"checked";?>>
-                                                    Done <input type="radio" name="state-<?= $count ?>" id="state-<?= $count ?>" value="done" <?php if($state=="DONE") echo"checked";?>>
-                                                    Cancelled <input type="radio" name="state-<?= $count ?>" id="state-<?= $count ?>" value="cancelled" <?php if($state=="CANC") echo"checked";?>>
-                                                    Waiting <input type="radio" name="state-<?= $count ?>" id="state-<?= $count ?>" value="waiting" <?php if($state=="WAIT") echo"checked";?>>
-                                                </p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- End of collapsed information-->
-                            <p></p>
-
-                            <?php
-                        }
-                        else
-                        {
-                        ?>
-                            <!-- If is the patient -->
-                            <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?= $count ?>">
-                                <div class="btn-group">
-                                    <button data-toggle="collapse" type="button" class="btn btn-default <?= $color ?>"
-                                            data-parent="#main-container-messages" href="#messages-<?= $count ?>">
-                                        <span class="glyphicon glyphicon-chevron-down"></span>
-                                        <span class="hidden"></span>
-                                    </button>
-                                </div>
-
-                                <div class="btn-group"><input type="button" id="type"
-                                                              class="btn btn-default <?= $color ?>"
-                                                              value="<?= $type ?>"></div>
-                                <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
-                                                              class="btn btn-default <?= $color ?>"
-                                                              value="<?= $state ?>"></div>
-                                <div class="btn-group"><input type="button" id="date-message"
-                                                              class="date btn btn-default <?= $color ?>"
-                                                              value="<?= $date ?>"></div>
-                                <div class="btn-group"><input type="button" id="hour-message"
-                                                              class="btn btn-default <?= $color ?>"
-                                                              value="<?= $hour ?>"></div>
-                                <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
-                                                              value="Room"></div>
-                                <div class="btn-group">
-                                    <button type="button" class="btn btn-default <?= $color ?>">
-                                        <span class="glyphicon glyphicon-envelope"></span>
-                                    </button>
-                                </div>
-
-                            </div>
-
-                            <div id="messages-<?= $count ?>" class="collapse in">
-                                <div class="container-fluid">
-                                    <div class="row">
-                                        <div class=" well  col-lg-12  col-md-12  col-sm-12  col-xs-12  ">
-                                            <div class="text-left">
-                                                <span><b>Description:</b></span>
-                                                <span class="edit-description"><?= $description ?></span>
-                                            </div>
-                                        </div>
-
-                                        <h3>Notes</h3>
-
-                                        <div class="well  col-xs-12 col-lg-12  col-md-12 col-sm-12">
-                                            <div class="text-left ">
-                                                <span class="edit-private-public"><?= $public_note ?></span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> <!-- End of collapsed information-->
-                        <p></p>
-                    <!--PAtient information-->
-                    <?php
-                    }
                     }
                     ?>
                 </div>

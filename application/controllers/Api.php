@@ -104,7 +104,6 @@ class Api extends CI_Controller {
         $date = $_POST['date'];
         $hour = $_POST['hour'];
 
-
         $error ="";
 
         if(empty($type)||empty($date)||empty($description)||empty($hour))
@@ -113,6 +112,7 @@ class Api extends CI_Controller {
         }
         else
         {
+
             if(!preg_match("/^[a-zA-Z]+$/",$type))
             {
                 $error.= "Type is wrong!<br/>";
@@ -143,27 +143,27 @@ class Api extends CI_Controller {
             }
         }
 
-
-
-
         if($error!="")
         {
             echo $error;
         }
         else
         {
-
-
-            if($_SESSION['user_type']!="Doctor")
+            if($_SESSION['user_type']!="DOCTOR")
             {
-                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$_SESSION['id'],"doctor_id"=>$user_data->getDoctorId(),"state"=>"waiting","type"=>$type,"private_note"=>"","public_note"=>""));
+                $appointment  = new Appointment();
+                $appointment->setInformation($description,$date." ".$hour,$_SESSION['id'],$user_data->getDoctorId(),"","","waiting",$type);
+                $appointment = $appointment->getArray();
+                $user_data->addAppointment($appointment);
             }
             else
             {
                 $user_id= $_POST['user_id'];
-                $this->DB_Helper->insertArray('appointment',array('description'=>$description,'date_hour'=>$date." ".$hour,'user_id'=>$user_id,"doctor_id"=>$user_data->getId(),"state"=>"pending","type"=>$type,"private_note"=>"","public_note"=>""));
+                $appointment  = new Appointment();
+                $appointment->setInformation($description,$date." ".$hour,$user_id,$user_data->getId(),"","","pending",$type);
+                $appointment = $appointment->getArray();
+                $user_data->addAppointment($appointment);
             }
-
 
             echo "SUCCESS";
         }
@@ -182,5 +182,67 @@ class Api extends CI_Controller {
         }
         echo "ERROR";
 
+    }
+
+    public function sendmessage()
+    {
+        checkSessionStart();
+        $date_hour = date("Y-m-d h:i:s");
+        $user_data =$_SESSION['user_data'];
+        $user_type= strtoupper(get_class($user_data));
+        if(isset($_POST['content'])&&isset( $_POST['subject']))
+        {
+            $content= $_POST['content'];
+            $subject = $_POST['subject'];
+            if(!empty($content)&&!empty($subject))
+            {
+                if(isset($_POST['user_ids'])&&$user_type=="DOCTOR")
+                {
+                    $user_ids= $_POST['user_ids'];
+                    for($i=0;$i<count($user_ids);$i++)
+                    {
+                        $message  = new Message();
+                        $message->setInformation(1,0,$content,$subject,$date_hour,$user_data->getId(),$user_ids[$i]);
+                        $message = $message->getArray();
+                        $user_data->addMessage($message);
+                    }
+                }
+                else if ($user_type=="USER")
+                {
+                    $message  = new Message();
+                    $message->setInformation(0,1,$content,$subject,$date_hour,$user_data->getDoctorId(),$user_data->getId());
+                    $message = $message->getArray();
+                    $user_data->addMessage($message);
+                }
+                else if($user_type=="DOCTOR")
+                {
+                    echo "ids_error";
+                }
+            }
+            else
+            {
+                echo "fields_error";
+            }
+
+        }
+    }
+
+    public function updatemessage()
+    {
+        checkSessionStart();
+        if(isset($_SESSION['id'])&&isset($_POST['message_number']))
+        {
+            if(preg_match('/^[0-9]*$/',$_POST['message_number']))
+            {
+                if($_SESSION['user_type']=='DOCTOR')
+                    $this->DB_Helper->update('message',array('read_doctor'=>1),array('id'=>$_POST['message_number']));
+                else
+                    $this->DB_Helper->update('message',array('read_user'=>1),array('id'=>$_POST['message_number']));
+            }
+            else
+                echo "Message Wrong";
+        }
+        else
+            echo "Message is not set!";
     }
 }

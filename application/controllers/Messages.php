@@ -4,14 +4,14 @@ class Messages extends CI_Controller {
 
     public function index()
     {
+
         checkSessionStart(); //check if user session has started, and if not start the session
         if(isset($_SESSION['id'])) {
             $user_data = $_SESSION['user_data']; //get user data
-            $user_type = strtoupper(get_class($user_data));
-            $id = $user_data->getId();
+            $user_type = strtoupper(get_class($user_data)); //get user type
 
             $this->load->view('navbar', getUserSessionDataArray());
-            $this->load->view('messages');
+            $this->load->view('messages',$user_data->getMessagesInformation($user_type));
             $this->load->view('footer');
         }
         else

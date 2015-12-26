@@ -68,6 +68,84 @@ $(document).ready(function() {
         }
     });
 
+//-------------------------------Send Message-------------------------
+    $('button[id="send-message"]').click(function() {
+        //in case of doctor
+        var user_ids= [];
+        var doctor_id;
+
+        var subject= $('input[id="message-subject"]').val();
+        var subject_object= $('input[id="message-subject"]');
+        var content= $('textarea[id="message-content"]').val();
+        var content_object= $('textarea[id="message-content"]');
+
+        var fields =[subject_object,content_object];
+
+        $('select option:selected').each(function(){
+            user_ids.push($(this).attr('value'));
+        });
+
+        $.post("/CI/Api/sendmessage",
+            {
+                content:content,
+                subject: subject,
+                user_ids: user_ids
+            },
+            function(data, status){
+                console.log(data);
+                    if(data=="ids_error")
+                    {
+                        message_notification="Select one patient!";
+                        message_type="info";
+                        message_title="Patients Error:";
+                        message_delay=2000;
+                        notify(message_notification,message_type,message_title,message_delay);
+                    }
+                    else if(data=="fields_error")
+                    {
+                        message_notification="Missing fields!";
+                        message_type="info";
+                        message_title="Message:";
+                        message_delay=2000;
+                        notify(message_notification,message_type,message_title,message_delay);
+                    }
+
+
+
+            });
+
+    });
+//--------------------------------------------------------------------
+
+
+//---------------------------------------Take care of messages-----------
+    $('button[id="open-message"]').click(function()
+    {
+       if($(this).attr('read')!=1)
+       {
+           var message_number = $(this).attr('message-number');
+           $(this).attr('read',1);
+           $(this).parent().parent().children().children('input').each(function()
+           {
+               $(this).attr('class','btn btn-primary disabled');
+           });
+           $(this).parent().parent().children().children('button').each(function()
+           {
+               $(this).attr('class','btn btn-primary disabled');
+           });
+           $.post("/CI/Api/updatemessage",
+               {
+                   message_number:message_number
+               },
+               function(data,status)
+               {
+                   console.log(data);
+               });
+
+       }
+    });
+//--------------------------------------------------------------------
+
 //--------------------------------Appointments book--------------------
 
 
@@ -120,6 +198,7 @@ $(document).ready(function() {
                     user_id: user_id
                 },
                 function(data, status){
+                    console.log(data);
                     if(data!="SUCCESS")
                     {
                         show_errors.html(data);
@@ -146,18 +225,14 @@ $(document).ready(function() {
     });
 //-----------------------------------End appointment BOOK------------
 
-
-
-
     $('button[id="search-appointments"]').click(function()
     {
-
         var hour = $('input[id="hour"]').val()+":00";
         var date = $('input[id="date"]').val();
 
-       $('input[id="date-messages"]').each(function() {
+       $('input[id="date-message"]').each(function() {
            var message_date = $(this).val();
-           var message_hour = $(this).parent().parent().find('input[id="hour-messages"]').val();
+           var message_hour = $(this).parent().parent().find('input[id="hour-message"]').val();
            if(date>=message_date) {
                if(date==message_date && hour<=message_hour) //check if the day is the same as message and compare with hour
                {

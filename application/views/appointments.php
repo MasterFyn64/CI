@@ -19,7 +19,7 @@
             <?php
             $total =  count($patients);
 
-            if($user_type =="Doctor") {
+            if($user_type =="DOCTOR") {
                 ?>
                 <h2>Patients</h2>
                 <select class="form-control" size="<?= $total ?>" >
@@ -89,7 +89,7 @@
                             $date = $temp[0];
                             $hour =$temp[1];
 
-                            if($user_type =="Doctor")
+                            if($user_type =="DOCTOR")
                             {
                                 ?>
                                 <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?= $count ?>" send-message-to="<?=$id?>">
@@ -106,10 +106,10 @@
                                     <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $state ?>"></div>
-                                    <div class="btn-group"><input type="button" id="date-messages"
+                                    <div class="btn-group"><input type="button" id="date-message"
                                                                   class="date btn btn-default <?= $color ?>"
                                                                   value="<?= $date ?>"></div>
-                                    <div class="btn-group"><input type="button" id="hour-messages"
+                                    <div class="btn-group"><input type="button" id="hour-message"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $hour ?>"></div>
                                     <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
@@ -198,10 +198,10 @@
                                     <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $state ?>"></div>
-                                    <div class="btn-group"><input type="button" id="date-messages"
+                                    <div class="btn-group"><input type="button" id="date-message"
                                                                   class="date btn btn-default <?= $color ?>"
                                                                   value="<?= $date ?>"></div>
-                                    <div class="btn-group"><input type="button" id="hour-messages"
+                                    <div class="btn-group"><input type="button" id="hour-message"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $hour ?>"></div>
                                     <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
@@ -277,7 +277,7 @@
                         $date = $temp[0];
                         $hour =$temp[1];
 
-                        if($user_type =="Doctor")
+                        if($user_type =="DOCTOR")
                         {
                             ?>
                             <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?=$count ?>">
@@ -294,10 +294,10 @@
                                 <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
                                                               class="btn btn-default <?= $color ?>"
                                                               value="<?= $state ?>"></div>
-                                <div class="btn-group"><input type="button" id="date-messages"
+                                <div class="btn-group"><input type="button" id="date-message"
                                                               class="date btn btn-default <?= $color ?>"
                                                               value="<?= $date ?>"></div>
-                                <div class="btn-group"><input type="button" id="hour-messages"
+                                <div class="btn-group"><input type="button" id="hour-message"
                                                               class="btn btn-default <?= $color ?>"
                                                               value="<?= $hour ?>"></div>
                                 <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
@@ -386,10 +386,10 @@
                                 <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
                                                               class="btn btn-default <?= $color ?>"
                                                               value="<?= $state ?>"></div>
-                                <div class="btn-group"><input type="button" id="date-messages"
+                                <div class="btn-group"><input type="button" id="date-message"
                                                               class="date btn btn-default <?= $color ?>"
                                                               value="<?= $date ?>"></div>
-                                <div class="btn-group"><input type="button" id="hour-messages"
+                                <div class="btn-group"><input type="button" id="hour-message"
                                                               class="btn btn-default <?= $color ?>"
                                                               value="<?= $hour ?>"></div>
                                 <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"

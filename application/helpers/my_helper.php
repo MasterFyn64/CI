@@ -21,7 +21,7 @@ if ( ! function_exists('getUserSessionData'))
     {
         checkSessionStart();
         $user_data=$_SESSION['user_data'];
-        $user_type=get_class($user_data);
+        $user_type=strtoupper(get_class($user_data));
 
         if($user_type=='Doctor')
         {

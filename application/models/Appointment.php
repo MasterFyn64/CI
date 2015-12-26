@@ -1,15 +1,28 @@
 <?php
 
 class Appointment extends CI_Model{
-    private $id;
-    private $description;
-    private $date_hour;
-    private $user_id;
-    private $doctor_id;
-    private $private_note;
-    private $public_note;
-    private $state;
-    private $type;
+    protected $id;
+    protected $description;
+    protected $date_hour;
+    protected $user_id;
+    protected $doctor_id;
+    protected $private_note;
+    protected $public_note;
+    protected $state;
+    protected $type;
+
+
+    public function setInformation($description,$date_hour,$user_id,$doctor_id,$public_note,$private_note,$state,$type)
+    {
+        $this->date_hour=$date_hour;
+        $this->description=$description;
+        $this->user_id=$user_id;
+        $this->doctor_id=$doctor_id;
+        $this->private_note=$private_note;
+        $this->public_note=$public_note;
+        $this->state=$state;
+        $this->type=$type;
+    }
 
     /**
      * @return mixed
@@ -155,5 +168,9 @@ class Appointment extends CI_Model{
         $this->type = $type;
     }
 
+    public function getArray()
+    {
+        return array('description'=>$this->description,'date_hour'=>$this->date_hour,'user_id'=>$this->user_id,'doctor_id'=>$this->doctor_id,'private_note'=>$this->private_note,'public_note'=>$this->public_note,'state'=>$this->state,'type'=>$this->type);
+    }
 
 }

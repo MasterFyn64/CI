@@ -7,6 +7,7 @@ class DB_Helper extends CI_Model{
 static $DOCTOR = "doctor";
  static $USER = "User";
  static  $MESSAGE = "message";
+ static  $APPOINTMENT = "appointment";
  static  $CONTACT = "contact";
  static  $PLAN = "plan";
  static  $EXERCISE = "exercise";
@@ -22,7 +23,6 @@ static $DOCTOR = "doctor";
         {
             if($query->num_rows()==1) // $query->row();
             {
-                $_SESSION['user_type'] = 'User';
                 return $query->row(0, "User");
             }
         }
@@ -37,7 +37,6 @@ static $DOCTOR = "doctor";
         if($error['code']==0) //Check for any errors
         {
             if ($query->num_rows() == 1) {
-                $_SESSION['user_type'] = 'Doctor';
                 return $query->row(0, "Doctor");
             }
         }
@@ -53,14 +52,13 @@ static $DOCTOR = "doctor";
 
     public function insertObject($table, $values)
     {
-       /* public function insert($table, $values)
-        {
-        }*/
+        $this->db->insert($table,$values);
     }
 
     //Insert in the database
     //Receives the table name and the values (Associative array like on the database) an return the id of inserted element
     public function insertArray($table, $values){
+
         $this->db->insert($table, $values);
 
         $error = $this->db->error();
@@ -75,16 +73,11 @@ static $DOCTOR = "doctor";
     // get objects by IDs
     public function getByUserId($user_id, $table){
 
-           $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE person_id=".$user_id);
-
-
-        $item_array = array();
-
+        $query = $this->db->query("SELECT * FROM ".strtolower($table)." WHERE person_id=".$user_id);
         $error = $this->db->error();
 
         if($error['code']==0) //Check for any errors
         {
-
             return $query->result_array();
         }
         return null;
@@ -115,21 +108,21 @@ static $DOCTOR = "doctor";
     }
 
     //Get class by person_id (Appointment , contact )
-    public function getClassById($person_id,$class,$user_type=null){
+    //user_type is used to make search on database rows where we have boths doctor_id and user_id
+    public function getClassById($person_id,$class,$user_type=null,$order=null,$table_order=null){
 
         $result =  array();
         if($user_type!=null)
         {
             if($user_type=="DOCTOR")
                 $query = $this->db->query("SELECT * FROM ".$class." WHERE doctor_id=".$person_id." ORDER BY date_hour DESC");
-            else
+            else if($user_type=="USER")
                 $query = $this->db->query("SELECT * FROM ".$class." WHERE user_id=".$person_id." ORDER BY date_hour DESC");
         }
         else
         {
             $query = $this->db->query("SELECT * FROM ".$class." WHERE person_id=".$person_id);
         }
-
 
         $error = $this->db->error();
         if($error['code']==0) //Check for any errors
@@ -198,16 +191,26 @@ static $DOCTOR = "doctor";
         return null;
     }
 
-    public function get_join($tables,$condition ,$where){
+    public function get_join($tables,$condition ,$where,$cast=null,$order=null,$table_order=null){
 
         $this->db->select('*');
         $this->db->from($tables[0]);
         $this->db->join($tables[1],$condition);
-        $this->db->where($where);
+        $this->db->or_where_in($where);
+        if($order!=null)
+        {
+            if($table_order!=null)
+                $this->db->order_by($table_order,$order);
+        }
+
         $query = $this->db->get();
 
         $error = $this->db->error();
-        if($error['code']==0) //Check for any errors
+        if($error['code']==0 && $cast!=null) //Check for any errors
+        {
+            return $query->custom_result_object($cast);
+        }
+        else
         {
             return $query->result_array();
         }

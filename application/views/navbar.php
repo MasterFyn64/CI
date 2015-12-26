@@ -184,9 +184,15 @@
             </div>
 
             <div class = "modal-body text-left">
-                <p><label for="description">Subject: </label>
-                    <input type="text" id="subject" name="subject"></p>
-                    <textarea type="text" id="content" name="content"></textarea></p>
+
+                <div class="form-group ">
+                    <label class="control-label" for="message-subject">Subject</label>
+                    <input type="text" class="form-control" id="message-subject" >
+                </div>
+                <div class="form-group ">
+                    <label class="control-label" for="message-content">Message </label>
+                    <textarea class="form-control" id="message-content" name="content"></textarea>
+                </div>
             </div>
 
             <div class = "modal-footer">
@@ -194,8 +200,8 @@
                     Close
                 </button>
 
-                <button type = "button" class = "btn btn-primary">
-                    Submit changes
+                <button type = "button" id="send-message" data-dismiss="" class = "btn btn-primary">
+                    Send Message
                 </button>
             </div>
 

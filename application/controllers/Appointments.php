@@ -8,14 +8,9 @@ class Appointments extends CI_Controller {
         if(isset($_SESSION['id'])) {
             $user_data = $_SESSION['user_data']; //get user data
             $user_type = strtoupper(get_class($user_data));
-            $id = $user_data->getId();
-
-
-            $appointments = $user_data->getAppointments(strtoupper($user_type)); //getAppointment
-            $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $id));
 
             $this->load->view('navbar', getUserSessionDataArray());
-            $this->load->view('appointments', array("appointments" => $appointments, "patients" => $patients));
+            $this->load->view('appointments', $user_data->getAppointmentsInformation($user_type));
             $this->load->view('footer');
         }
         else

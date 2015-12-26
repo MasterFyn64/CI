@@ -6,7 +6,7 @@ class Register extends CI_Controller {
     {
         checkSessionStart(); //check if user session has started, and if not start the session
 
-        if(isset($_SESSION['id']) && $_SESSION['user_type']=="Doctor")
+        if(isset($_SESSION['id']) && $_SESSION['user_type']=="DOCTOR")
         {
 
             $this->load->view("navbar",getUserSessionDataArray());

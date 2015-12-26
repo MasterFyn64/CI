@@ -14,12 +14,14 @@ class Profile extends CI_Controller {
 
             if($user_data)
             {
+                $_SESSION['user_type'] = 'USER';
                 $_SESSION['contacts'] = $user_data->getContacts();
             }
 
             // if isn't a user checks if is a doctor
             if (!$user_data) {
                 $user_data = $this->DB_Helper->getDoctorById($_SESSION['id']);
+                $_SESSION['user_type'] = 'DOCTOR';
                 $_SESSION['contacts'] = $user_data->getContacts();
 
             }

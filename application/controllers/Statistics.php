@@ -13,6 +13,7 @@ class Statistics extends CI_Controller {
             $this->load->view('navbar', getUserSessionDataArray());
             $this->load->view('statistics');
             $this->load->view('footer');
+            $this->load->view("loadstatistics");
         }
         else
         {
@@ -22,4 +23,5 @@ class Statistics extends CI_Controller {
             $this->load->view("footer");
         }
     }
+
 }

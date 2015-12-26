@@ -251,4 +251,47 @@ class Api extends CI_Controller {
         else
             echo "Message is not set!";
     }
+
+    public function getPieData(){
+        //ver sessao iniciada....  getUserId()
+        $data = array();
+        array_push($data, array('Walking', 12.7));
+        array_push($data, array('Still', 74.6));
+        array_push($data, array('name' => 'Running',
+            'y' => 12.8,
+            'sliced' => true,
+            'selected' => true
+        ));
+        array_push($data, array('Cycling', 1.2));
+        array_push($data, array('Car', 15.6));
+
+        echo json_encode($data);
+    }
+
+    public function getBarData(){
+        //ver sessao iniciada....  getUserId()
+        $data = array();
+        $data["serie"] = array();
+        array_push($data["serie"], array('name' => "Walking", "data" => array(72.4,78.1,74.8,73.0,71.4,71.1,70.2,82.3,84.4,79.8,82.1,81.6,73.1,81.2,78.8,84.2,71.8,76.4,70.1,80.2,77.8,84.6,80.2,82.4,84.1,81.1,76.2,71.7,78.4,77.5)));
+        array_push($data["serie"], array('name' => "Still",   "data" => array(8.8,7.0,9.1,8.7,9.6,6.7,5.7,7.3,7.6,9.3,6.6,5.5,7.8,7.3,7.2,6.5,5.9,8.7,8.2,9.4,5.6,8.8,5.2,9.6,7.9,9.4,9.3,9.7,6.9,8.2)));
+        array_push($data["serie"], array('name' => "Running", "data" => array(2.3,3.8,2.5,3.7,3.0,3.7,3.4,3.7,2.8,2.4,3.8,2.9,2.5,3.7,3.9,3.9,2.3,3.7,3.7,3.8,3.2,2.5,3.7,3.6,3.1,3.8,2.4,3.7,3.3,3.0)));
+        array_push($data["serie"], array('name' => "Cycling", "data" => array(0,0,4,4,0,0,3,0,0,2,2,0,0,0,0,0,0,0,1,2,3,4,5,6,7,8,9,10,11)));
+        array_push($data["serie"], array('name' => "Car",     "data" => array(16.5,10.8,9.4,10.3,15.8,18.3,17.5,6.5,5.0,6.4,5.3,9.7,16.,7.6,9.9,5.2,19.7,11.1,17.9,5.4,11.2,0.9,6.7,0.1,0.1,0.1,3.9,5.7,1.2,0.04)));
+
+        $data["date"] = array('year' => date('Y', strtotime("-30 day")), "month" => date('m',strtotime("-30 day")), "day" => date('d',strtotime("-30 day")));
+
+        echo json_encode($data);
+    }
+
+    public function getProgressData(){
+        //ver sessao iniciada....  getUserId()
+        $data = array();
+        $data["serie"] = array();
+        array_push($data["serie"], array('name' => "Walking", "data" => array(72.4,78.1,74.8,73.0,71.4,71.1,70.2,82.3,84.4,79.8,82.1,81.6,73.1,81.2,78.8,84.2,71.8,76.4,70.1,80.2,77.8,84.6,80.2,82.4,84.1,81.1,76.2,71.7,78.4,77.5)));
+
+
+        $data["date"] = array('year' => date('Y', strtotime("-30 day")), "month" => date('m',strtotime("-30 day")), "day" => date('d',strtotime("-30 day")));
+
+        echo json_encode($data);
+    }
 }

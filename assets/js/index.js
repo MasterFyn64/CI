@@ -1,5 +1,34 @@
 $(document).ready(function() {
 
+    $("#1").on("click","button",function() //It looks for button inside the div 1 and execute click button
+    {
+       changeGraphs($(this));
+    });
+
+    $("#2").on("click","button",function()
+    {
+       changeGraphs($(this));
+    });
+
+    $("#3").on("click","button",function()
+    {
+       changeGraphs($(this));
+    });
+
+    function changeGraphs(Object)
+    {
+        Object.attr('class','btn btn-default btn-primary hidden');
+        var graph = Object.parent().parent();
+        var present_position_id = Object.parent().parent().parent().attr('id');
+        graph.remove();
+        var next_position =$('div[id="1"]');
+        next_position.children().children().children('button').attr('class','btn btn-default btn-primary');
+        var old_graph=next_position.children();
+        old_graph.remove();
+        $('div[id="'+present_position_id+'"]').append(old_graph);
+        next_position.append(graph);
+        reloadGraphs(Object.attr('id'),old_graph.children().children('button').attr('id'));
+    }
 
     $('input[name^="state-"]').click(function()
     {
@@ -578,4 +607,24 @@ function notify(message_notification,message_type,message_title,message_delay)
         '<a href="{3}" target="{4}" data-notify="url"></a>' +
         '</div>'
     });
+}
+
+function reloadGraphs(refresh_old,refresh_new)
+{
+    console.log(refresh_new);
+    console.log(refresh_old);
+    if(refresh_old=="pie-graph")
+        getPieData(loadPieChart);
+    else if(refresh_old=="progress-graph")
+        getProgressData(loadProgressChart);
+    else if(refresh_old=="bar-graph")
+        getBarData(loadBarChart);
+
+    if(refresh_new=='bar-graph')
+        getBarData(loadBarChart);
+    else if(refresh_new=='progress-graph')
+        getProgressData(loadProgressChart);
+    else if(refresh_new=='pie-graph')
+        getPieData(loadPieChart);
+
 }

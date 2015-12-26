@@ -5,15 +5,13 @@ var loadCharts = function () {
         }
     })
     
-    getPieData(loadPieChart)
-    getBarData(loadBarChart)
-    getProgressData(loadProgressChart)
-    
-    $("#btnLoad").click(function(){
-        //$("#pieDiv").height(400)
-        $("#pieDiv").highcharts().setSize(null,400,doAnimation=true)
-    })
+    getPieData(loadPieChart);
+    getBarData(loadBarChart);
+    getProgressData(loadProgressChart);
+
 };
+
+
 
 var getPieData = function(callback){
     $.get( "/CI/Api/getPieData", function(data) {

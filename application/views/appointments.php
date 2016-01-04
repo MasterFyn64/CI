@@ -35,6 +35,10 @@
 
                 <?php
             }
+            else
+            {
+                echo "ERRRRORRRER";
+            }
             ?>
             <button type="button" class="btn btn-primary" data-toggle = "modal" data-target = "#appointments">New Appointment</button><br/><br/>
 

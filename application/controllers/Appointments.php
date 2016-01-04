@@ -22,3 +22,4 @@ class Appointments extends CI_Controller {
         }
     }
 }
+

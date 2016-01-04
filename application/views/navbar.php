@@ -83,10 +83,10 @@
         </ul><!-- end of left navbar-->
         <!------------------------------right navbar---------------------------->
         <ul class="nav navbar-nav navbar-right">
-            <!-- NavBar send messages-->
+            <!--
             <li>
                 <a href="<?=base_url()?>messages"> <span class="glyphicon glyphicon-envelope"></span></a>
-            </li>
+            </li>  NavBar send messages-->
 
             <li>
                 <a href="<?=base_url()?>settings"> <span class="glyphicon glyphicon-cog"></span></a>

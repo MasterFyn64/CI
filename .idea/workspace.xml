@@ -75,8 +75,8 @@
       <file leaf-file-name="appointments.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/application/views/appointments.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.7305459">
-              <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="40" selection-end-column="13" />
+            <state vertical-scroll-proportion="0.7108014">
+              <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
               <folding />
             </state>
           </provider>
@@ -392,7 +392,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-7" y="0" width="1617" height="1047" extended-state="0" />
+    <frame x="-7" y="0" width="1617" height="1047" extended-state="1" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.15799615" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -789,8 +789,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/application/views/appointments.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.7305459">
-          <caret line="37" column="12" selection-start-line="37" selection-start-column="12" selection-end-line="40" selection-end-column="13" />
+        <state vertical-scroll-proportion="0.7108014">
+          <caret line="36" column="12" selection-start-line="36" selection-start-column="12" selection-end-line="36" selection-end-column="12" />
           <folding />
         </state>
       </provider>

@@ -1,5 +1,4 @@
 /* remove panel shadoow */
-
 .panel {
     -webkit-box-shadow: none;
     box-shadow: none;
@@ -112,7 +111,7 @@ textarea {
 /* title */
 .navbar-default .navbar-brand {
     color: #777;
-    padding-top: 20px;
+    padding-top: 15px;
 }
 .navbar-brand  > img{
     width:140px;

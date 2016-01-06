@@ -48,6 +48,10 @@ abstract class Person extends CI_Model{
         return $this->DB_Helper->getByUserId($this->id, "plan");
     }
 
+    public function getPlansInformation($user_type)
+    {
+
+    }
     
     public function getContacts(){
 

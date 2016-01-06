@@ -5,8 +5,10 @@
         <div class="appointment-date-hour  text-center col-lg-offset-6 col-lg-6 col-md-offset-4 col-md-8 col-sm-offset-2 col-sm-10">
             <label for="date">Start Date: </label>
             <input type="date" id="date" name="date">
+            <div class="visible-xs"><br/></div>
             <label for="hour">Hour: </label>
             <input placeholder="10:45" type="text" id="hour" name="hour">
+            <div class="visible-xs"><br/></div>
             <button id="search-appointments" type="button" class="btn btn-primary ">Search</button>
         </div>
     </div>
@@ -14,12 +16,15 @@
 
 <div class="container">
     <div class="row">
+        <?php
+        $total =  count($patients);
+        $layout ="col-lg-12 col-md-12 col-xs-12";
+        if($user_type =="DOCTOR") {
+            $layout ="col-md-8";
+        ?>
         <div class="col-md-3 no-float text-center">
-            <?php
-            $total =  count($patients);
 
-            if($user_type =="DOCTOR") {
-                ?>
+
                 <h2>Patients</h2>
                 <select class="form-control" size="<?= $total ?>" multiple="multiple" >
 
@@ -31,14 +36,20 @@
                     }
                     ?>
                 </select><br/>
-
-                <?php
-            }
-            ?>
             <button type="button" class="btn btn-primary" data-toggle = "modal" data-target = "#message">New Message</button><br/><br/>
         </div>
+        <?php
+        }
+        else
+        {
+        ?>
+            <button type="button" class="btn btn-primary center-block" data-toggle = "modal" data-target = "#message">New Message</button><br/><br/>
 
-        <div class="col-md-9 no-float">
+            <?php
+        }
+        ?>
+
+        <div class="<?=$layout?> no-float">
             <div id = "main-container-messages">
                 <div id="all-messages" class= "panel">
 
@@ -85,9 +96,9 @@
                                     </button>
                                 </div>
 
-                                <div class="btn-group"><input type="button" id="from-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$from?>"></div>
-                                <div class="btn-group"><input type="button" id="to-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$to?>"></div>
-                                <div class="btn-group"><input type="button" id="subject-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$subject?>"></div>
+                                <div class="btn-group hidden-xs"><input type="button" id="from-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$from?>"></div>
+                                <div class="btn-group hidden-xs"><input type="button" id="to-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$to?>"></div>
+                                <div class="btn-group hidden-xs"><input type="button" id="subject-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$subject?>"></div>
                                 <div class="btn-group"><input type="button" id="date-message" class="date btn btn-default btn-primary <?=$read_message?>" value="<?=$date?>"></div>
                                 <div class="btn-group"><input type="button" id="hour-message" class="Hour btn btn-default btn-primary <?=$read_message?>" value="<?=$hour?>"></div>
                             </div>

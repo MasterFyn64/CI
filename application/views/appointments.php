@@ -5,8 +5,10 @@
         <div class="appointment-date-hour  text-center col-lg-offset-6 col-lg-6 col-md-offset-4 col-md-8 col-sm-offset-2 col-sm-10">
             <label for="date">Start Date: </label>
             <input type="date" id="date" name="date">
+            <div class="visible-xs"><br/></div>
             <label for="hour">Hour: </label>
             <input placeholder="10:45" type="text" id="hour" name="hour">
+            <div class="visible-xs"><br/></div>
             <button id="search-appointments" type="button" class="btn btn-primary ">Search</button>
         </div>
     </div>
@@ -14,13 +16,13 @@
 
 <div class="container">
     <div class="row">
-        <div class="col-md-3 no-float text-center">
-
-            <?php
+       <?php
             $total =  count($patients);
-
-            if($user_type =="DOCTOR") {
+           $layout ="col-lg-12 col-md-12 col-xs-12";
+           if($user_type =="DOCTOR") {
+            $layout ="col-md-8";
                 ?>
+        <div class="col-md-3 no-float text-center">
                 <h2>Patients</h2>
                 <select class="form-control" size="<?= $total ?>" >
 
@@ -32,16 +34,21 @@
                     }
                     ?>
                 </select><br/>
-
-                <?php
-            }
-
-            ?>
             <button type="button" class="btn btn-primary" data-toggle = "modal" data-target = "#appointments">New Appointment</button><br/><br/>
 
         </div>
+        <?php
+            }
+            else
+            {
+                ?>
+                <button type="button" class="btn btn-primary center-block" data-toggle = "modal" data-target = "#appointments">New Appointment</button><br/><br/>
 
-        <div class="col-md-9 no-float">
+                <?php
+            }
+       ?>
+
+        <div class="<?=$layout?> no-float">
             <div id = "main-container-messages">
                 <div id="all-messages" class= "panel">
                     <?php
@@ -105,10 +112,10 @@
                                         </button>
                                     </div>
 
-                                    <div class="btn-group"><input type="button" id="type"
+                                    <div class="btn-group hidden-xs"><input type="button" id="type"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $type ?>"></div>
-                                    <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
+                                    <div class="btn-group hidden-xs"><input type="button" id="state-messages-<?=$count?>"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $state ?>"></div>
                                     <div class="btn-group"><input type="button" id="date-message"
@@ -117,9 +124,9 @@
                                     <div class="btn-group"><input type="button" id="hour-message"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $hour ?>"></div>
-                                    <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
+                                    <div class="btn-group hidden-xs"><input type="button" class="btn btn-default <?= $color ?>"
                                                                   value="<?=$room_number?>"></div>
-                                    <div class="btn-group">
+                                    <div class="btn-group hidden">
                                         <button type="button" class="btn btn-default <?= $color ?>">
                                             <span class="glyphicon glyphicon-envelope"></span>
                                         </button>
@@ -138,7 +145,15 @@
                                                     <span value="<?= $description ?>" id="description-<?= $count ?>"><?= $description ?></span>
                                                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-description-<?= $count ?>" value="description-<?= $count ?>"></span>
                                                     <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-description-<?= $count ?>" value="description-<?= $count ?>" id="save"></span>
-                                                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-description-<?= $count ?>" value="description-<?= $count ?>" id="remove"></span>
+                                                    <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-description-<?= $count ?>" value="description-<?= $count ?>" id="remove"></span><br/>
+
+                                                    <span><b>Type:</b></span>
+                                                <span id="edit-description-<?= $count ?>">
+                                                    <span value="<?= $type ?>" id="description-<?= $count ?>"><?= $description ?></span>
+                                                </span><br/>
+                                                     <span><b>Room Number:</b></span>
+                                                <span id="edit-description-<?= $count ?>">
+                                                    <span value="<?= $type ?>" id="description-<?= $count ?>"><?= $room_number ?></span>
                                                 </span>
                                                 </div>
                                             </div>
@@ -197,10 +212,10 @@
                                         </button>
                                     </div>
 
-                                    <div class="btn-group"><input type="button" id="type"
-                                                                  class="btn btn-default <?= $color ?>"
+                                    <div class="btn-group hidden-xs"><input type="button" id="type"
+                                                                  class=" btn btn-default <?= $color ?>"
                                                                   value="<?= $type ?>"></div>
-                                    <div class="btn-group"><input type="button" id="state-messages-<?=$count?>"
+                                    <div class="btn-group hidden-xs"><input type="button" id="state-messages-<?=$count?>"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $state ?>"></div>
                                     <div class="btn-group"><input type="button" id="date-message"
@@ -209,9 +224,9 @@
                                     <div class="btn-group"><input type="button" id="hour-message"
                                                                   class="btn btn-default <?= $color ?>"
                                                                   value="<?= $hour ?>"></div>
-                                    <div class="btn-group"><input type="button" class="btn btn-default <?= $color ?>"
+                                    <div class="btn-group hidden"><input type="button" class="btn btn-default <?= $color ?>"
                                                                   value="Room"></div>
-                                    <div class="btn-group">
+                                    <div class="btn-group hidden">
                                         <button type="button" class="btn btn-default <?= $color ?>">
                                             <span class="glyphicon glyphicon-envelope"></span>
                                         </button>
@@ -225,7 +240,10 @@
                                             <div class=" well  col-lg-12  col-md-12  col-sm-12  col-xs-12  ">
                                                 <div class="text-left">
                                                     <span><b>Description:</b></span>
-                                                    <span class="edit-description"><?= $description ?></span>
+                                                    <span class="edit-description"><?= $description ?></span><br/>
+                                                    <span><b>Type:</b></span>
+                                                <span id="edit-description-<?= $count ?>">
+                                                    <span value="<?= $type ?>" id="description-<?= $count ?>"><?= $type ?></span>
                                                 </div>
                                             </div>
 

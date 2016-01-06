@@ -11,7 +11,7 @@ class Plan extends CI_Controller {
             $id = $user_data->getId();
 
             $this->load->view('navbar', getUserSessionDataArray());
-            $this->load->view('plan');
+            $this->load->view('plan',$user_data->getPlansInformation($user_type));
             $this->load->view('footer');
         }
         else

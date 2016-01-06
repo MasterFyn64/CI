@@ -24,34 +24,46 @@ abstract class Person extends CI_Model{
         if($user_type=="DOCTOR")
         {
             $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
+            var_dump($patients);
             $search = array();
             foreach($patients as $patient)
             {
                 $search[]=$patient['person_id'];  //add appointments to array to check on the view
-
             }
-            $name_messages=$this->DB_Helper->get_join(array("person", " message"), " message.user_id= person.id", array("message.user_id",$search),'Message','DESC','date_hour');
+
+            $name_messages=$this->DB_Helper->get_join(array("person", " message"), " message.user_id= person.id",array("message.doctor_id"=>$this->id),'Message','DESC','date_hour',array("message.user_id",$search));
         }
         else if ($user_type=="USER")
         {
             $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
-            $name_messages=$this->DB_Helper->get_join(array("person", " message"), " message.doctor_id= person.id", array("message.doctor_id",$user_data->getDoctorId()),"Message",'DESC','date_hour');
+            $name_messages=$this->DB_Helper->get_join(array("person", " message"), " message.doctor_id= person.id", array("message.user_id"=>$this->id,"message.doctor_id"=>$user_data->getDoctorId()),"Message",'DESC','date_hour');
             $_SESSION['doctor_id']=$user_data->getDoctorId();
         }
         return array("messages"=>$name_messages,"patients"=>$patients);
-    }
-    // GET & SET
-
-    // ---------------------------------- GET PROPERTIES
-
-    public function getPlans(){
-        return $this->DB_Helper->getByUserId($this->id, "plan");
     }
 
     public function getPlansInformation($user_type)
     {
 
+        $plans = $this->DB_Helper->get("plan");
+        $exercises ="";
+        foreach($plans as $plan)
+        {
+            $exercises[]=$this->DB_Helper->get_join(array("exerciseinstance","exercise","plan"),array("exercise.id=exerciseinstance.exercise_id","plan.id = exerciseinstance.plan_id","plan.user_id"),array("plan.id"=>$plan['id']));
+
+        }
+
+
+        var_dump($exercises);
+        var_dump($plans);
+        return array("plans"=>$plans,"exercises"=>$exercises);
     }
+
+    // GET & SET
+
+    // ---------------------------------- GET PROPERTIES
+
+
     
     public function getContacts(){
 

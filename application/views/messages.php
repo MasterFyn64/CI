@@ -136,7 +136,7 @@
                             </div> <!-- End of collapsed information-->
 
                             <p></p>
-                        <?php
+                            <?php
                             $count++;
                         }
                     }?>

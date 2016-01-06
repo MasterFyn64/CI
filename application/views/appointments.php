@@ -24,7 +24,7 @@
                 ?>
         <div class="col-md-3 no-float text-center">
                 <h2>Patients</h2>
-                <select class="form-control" size="<?= $total ?>" >
+                <select class="form-control" >
 
                     <?php
                     foreach ($patients as $patient) {
@@ -56,7 +56,7 @@
 
                     if(empty($appointments))
                     {
-                        echo "<div class='text-center'>You don't have any messages!</div>";
+                        echo "<div class='text-center'>You don't have any appointments!</div>";
                     }
                     else
                     {

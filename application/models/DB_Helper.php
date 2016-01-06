@@ -177,8 +177,11 @@ static $DOCTOR = "doctor";
 
 
     //get table by table name as values
-    public function get($table, $values){
-       $query= $this->db->get_where($table, $values);
+    public function get($table, $values=null){
+        if($values!=null)
+            $query= $this->db->get_where($table, $values);
+        else
+            $query=$this->db->get($table);
         $error = $this->db->error();
         if($error['code']==0) //Check for any errors
         {
@@ -187,12 +190,34 @@ static $DOCTOR = "doctor";
         return null;
     }
 
-    public function get_join($tables,$condition ,$where,$cast=null,$order=null,$table_order=null){
+    public function get_join($tables,$condition ,$where,$cast=null,$order=null,$table_order=null,$multiple_search=null){
+
 
         $this->db->select('*');
         $this->db->from($tables[0]);
-        $this->db->join($tables[1],$condition);
-        $this->db->or_where_in($where);
+
+        if(count($tables)>2)
+        {
+            for($i=1;$i<count($tables);$i++)
+            {
+                $this->db->join($tables[$i],$condition[$i-1]);
+            }
+        }
+        else
+            $this->db->join($tables[1],$condition);
+        if($where!=null)
+        {
+            $this->db->where($where);
+            if($multiple_search!=null) {
+                for ($i = 0; $i < count($multiple_search[1]); $i++) {
+                    if($i==0)
+                        $this->db->where($multiple_search[0], $multiple_search[1][$i]);
+                    else
+                        $this->db->or_where($multiple_search[0], $multiple_search[1][$i]);
+                }
+
+            }
+        }
         if($order!=null)
         {
             if($table_order!=null)

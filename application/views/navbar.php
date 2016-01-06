@@ -64,7 +64,7 @@
                 </ul>
             </li>
             <?php
-            if($_SESSION['user_type']=='Doctor') {
+            if($_SESSION['user_type']=='DOCTOR') {
                 ?>
                 <li class="dropdown">
                     <a href="#" data-toggle="dropdown" class="dropdown-toggle" aria-expanded="true" aria-haspopup="true"

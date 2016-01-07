@@ -48,17 +48,43 @@ abstract class Person extends CI_Model{
 
     public function getPlansInformation($user_type)
     {
+        if($user_type=="DOCTOR")
+        {
+            //search for both user_data and doctor_plans and order by the same field to join after that
+            $plans = $this->DB_Helper->get_join(array("plan","doctor"),"doctor.person_id=plan.doctor_id",array("doctor_id"=>$this->id),null,'desc','start_date');
+            $user_data_plan = $this->DB_Helper->get_join(array("plan","user","person"),array("user.person_id=plan.user_id","user.person_id=person.id"),array("plan.doctor_id"=>$this->id),null,'desc','start_date');
+        }
+        else
+        {
+            //search for both doctor_data and user_plans and order by the same field to join after that
+            $plans = $this->DB_Helper->get_join(array("plan","user"),"user.person_id=plan.user_id",array("user_id"=>$this->id),null,'desc','start_date');
+            $user_data_plan = $this->DB_Helper->get_join(array("plan","person"),"plan.doctor_id=person.id",array("user_id"=>$this->id),null,'desc','start_date');
+        }
 
-        $plans = $this->DB_Helper->get("plan");
         $values=array();
         $final_result = array();
         $patients = $this->getPatients();
+
+        $count=0;
         foreach($plans as $plan)
         {
+            //join the user_data to the plans
+            if($user_type=="DOCTOR")
+                $values['user_data']=$user_data_plan[$count];
+            else
+                $values['doctor_data']=$user_data_plan[$count];
+
             $values['plan']=$plan;
-            $values['exercises'] = $this->DB_Helper->get_join(array("exerciseinstance","exercise","plan"),array("exercise.id=exerciseinstance.exercise_id","plan.id = exerciseinstance.plan_id","plan.user_id"),array("plan.id"=>$plan['id']));
+            $values['exercises'] = $this->DB_Helper->get_join(array("exercise","exerciseinstance"),"exerciseinstance.exercise_id=exercise.id",array("exerciseinstance.plan_id"=>$plan['id']));
+
+            //save that plan to the final array
             $final_result[]=$values;
+
+            //clear the array for the next plan
             $values=array();
+
+            //var to iterate the user_data
+            $count++;
         }
         return array("plans"=>$final_result,"patients"=>$patients);
     }

@@ -179,9 +179,10 @@ static $DOCTOR = "doctor";
     //get table by table name as values
     public function get($table, $values=null){
         if($values!=null)
-            $query= $this->db->get_where($table, $values);
+            $query=$this->db->get_where($table, $values);
         else
             $query=$this->db->get($table);
+
         $error = $this->db->error();
         if($error['code']==0) //Check for any errors
         {
@@ -205,6 +206,7 @@ static $DOCTOR = "doctor";
         }
         else
             $this->db->join($tables[1],$condition);
+
         if($where!=null)
         {
             $this->db->where($where);

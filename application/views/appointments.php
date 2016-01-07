@@ -37,6 +37,7 @@
             <button type="button" class="btn btn-primary" data-toggle = "modal" data-target = "#appointments">New Appointment</button><br/><br/>
 
         </div>
+
         <?php
             }
             else
@@ -51,6 +52,40 @@
         <div class="<?=$layout?> no-float">
             <div id = "main-container-messages">
                 <div id="all-messages" class= "panel">
+                    <br>
+                    <!--preview bar-->
+                    <div class="btn-group btn-group-lg btn-group-justified ">
+                        <div class="btn-group">
+                            <button data-toggle="collapse" type="button" class="btn btn-default btn-info"
+                                    data-parent="#main-container-plans">
+                                <span class="">Open </span>
+                            </button>
+                        </div>
+                        <div class="btn-group hidden-xs">
+                            <button type="button" class="btn btn-default btn-info">Type</button>
+                        </div>
+                        <div class="btn-group hidden-xs">
+                            <button type="button" class="btn btn-default btn-info">State</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-info">Day</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-info">Hour</button>
+                        </div>
+
+                        <?php
+                        if($user_type=="DOCTOR")
+                        {
+
+                        ?>
+                        <div class="btn-group hidden-xs">
+                            <button type="button" class="btn btn-default btn-info">Room</button>
+                        </div>
+                        <?php
+                        }
+                        ?>
+                    </div>
                     <?php
                     $count =0;
 
@@ -149,7 +184,7 @@
 
                                                     <span><b>Type:</b></span>
                                                 <span id="edit-description-<?= $count ?>">
-                                                    <span value="<?= $type ?>" id="description-<?= $count ?>"><?= $description ?></span>
+                                                    <span value="<?= $type ?>" id="description-<?= $count ?>"><?= $type ?></span>
                                                 </span><br/>
                                                      <span><b>Room Number:</b></span>
                                                 <span id="edit-description-<?= $count ?>">

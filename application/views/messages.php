@@ -52,7 +52,30 @@
         <div class="<?=$layout?> no-float">
             <div id = "main-container-messages">
                 <div id="all-messages" class= "panel">
-
+                    <!--preview bar-->
+                    <div class="btn-group btn-group-lg btn-group-justified ">
+                        <div class="btn-group">
+                            <button data-toggle="collapse" type="button" class="btn btn-default btn-info"
+                                    data-parent="#main-container-plans">
+                                <span class="">Open </span>
+                            </button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-info">From</button>
+                        </div>
+                        <div class="btn-group hidden-xs">
+                            <button type="button" class="btn btn-default btn-info">To</button>
+                        </div>
+                        <div class="btn-group hidden-xs">
+                            <button type="button" class="btn btn-default btn-info">Subject</button>
+                        </div>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-default btn-info">Day</button>
+                        </div>
+                        <div class="btn-group hidden-xs">
+                            <button type="button" class="btn btn-default btn-info">Hour</button>
+                        </div>
+                    </div>
                     <?php
                     $count =0;
                     if(empty($messages))
@@ -94,11 +117,11 @@
                                     </button>
                                 </div>
 
-                                <div class="btn-group hidden-xs"><input type="button" id="from-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$from?>"></div>
+                                <div class="btn-group "><input type="button" id="from-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$from?>"></div>
                                 <div class="btn-group hidden-xs"><input type="button" id="to-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$to?>"></div>
                                 <div class="btn-group hidden-xs"><input type="button" id="subject-message-<?= $count ?>" class="btn btn-default btn-primary <?=$read_message?>" value="<?=$subject?>"></div>
                                 <div class="btn-group"><input type="button" id="date-message" class="date btn btn-default btn-primary <?=$read_message?>" value="<?=$date?>"></div>
-                                <div class="btn-group"><input type="button" id="hour-message" class="Hour btn btn-default btn-primary <?=$read_message?>" value="<?=$hour?>"></div>
+                                <div class="btn-group hidden-xs"><input type="button" id="hour-message" class="Hour btn btn-default btn-primary <?=$read_message?>" value="<?=$hour?>"></div>
                             </div>
 
                             <div id="messages-<?= $count ?>" class="collapse <?php if ($count == 0) echo " in" ?>">

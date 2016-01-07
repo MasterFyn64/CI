@@ -1,5 +1,5 @@
 <!-- footer for all pages -->
-<footer>
+<footer class="footer">
     <div class="container-fluid bg-primary footer">
         <div class="container">
             <div class="row">

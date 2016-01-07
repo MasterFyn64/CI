@@ -1,5 +1,39 @@
 $(document).ready(function() {
 
+    /* plans */
+    $("button[data-obtain='exercise-button']").click(function()
+    {
+        var plan_id = $(this).attr('id');
+        $(this).parent().children('button').attr('class','btn btn-primary btn-group-justified');
+        $(this).attr('class','btn btn-primary btn-group-justified disabled');
+        var exercise_id =$(this).attr('data-exercise');
+        var s = ['exercise-duration-','exercise-repetitions-','exercise-name-','exercise-description-'];
+
+        var results =[];
+        for(r=0;r< s.length;r++)
+        {
+            results[r]=$('span[id="'+s[r]+plan_id+'-'+exercise_id+'"]').html();
+
+        }
+        for(r=0;r< s.length;r++)
+        {
+            $('label[id="'+s[r]+plan_id+'"]').parent().children('span').html(results[r]);
+        }
+        //days
+            var days= $('span[id="exercise-days-'+plan_id+'-'+exercise_id+'"]').html();
+
+            var i=0;
+            $('div[id="exercise-days-'+plan_id+'"]').children('div').each(function()
+            {
+                if(days[i]==0)
+                    $(this).children().attr('class','btn btn-default btn-primary');
+                else
+                    $(this).children().attr('class','btn btn-default btn-success');
+                i=i+2;
+            });
+    });
+
+    /*emd plans*/
     $("#1").on("click","button",function() //It looks for button inside the div 1 and execute click button
     {
        changeGraphs($(this));

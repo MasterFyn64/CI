@@ -63,8 +63,6 @@
                     {
                         foreach($messages as $message)
                         {
-
-
                             $id = $message->getId();
                             $doctor_id = $message->getDoctorId();
                             $user_id = $message->getUserId();

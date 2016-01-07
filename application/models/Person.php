@@ -24,7 +24,6 @@ abstract class Person extends CI_Model{
         if($user_type=="DOCTOR")
         {
             $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
-            var_dump($patients);
             $search = array();
             foreach($patients as $patient)
             {
@@ -46,17 +45,16 @@ abstract class Person extends CI_Model{
     {
 
         $plans = $this->DB_Helper->get("plan");
-        $exercises ="";
+        $values=array();
+        $final_result = array();
         foreach($plans as $plan)
         {
-            $exercises[]=$this->DB_Helper->get_join(array("exerciseinstance","exercise","plan"),array("exercise.id=exerciseinstance.exercise_id","plan.id = exerciseinstance.plan_id","plan.user_id"),array("plan.id"=>$plan['id']));
-
+            $values['plan']=$plan;
+            $values['exercises'] = $this->DB_Helper->get_join(array("exerciseinstance","exercise","plan"),array("exercise.id=exerciseinstance.exercise_id","plan.id = exerciseinstance.plan_id","plan.user_id"),array("plan.id"=>$plan['id']));
+            $final_result[]=$values;
+            $values=array();
         }
-
-
-        var_dump($exercises);
-        var_dump($plans);
-        return array("plans"=>$plans,"exercises"=>$exercises);
+        return array("plans"=>$final_result);
     }
 
     // GET & SET

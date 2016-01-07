@@ -17,7 +17,7 @@ $(document).ready(function() {
         }
         for(r=0;r< s.length;r++)
         {
-            $('label[id="'+s[r]+plan_id+'"]').parent().children('span').html(results[r]);
+            $('label[id="'+s[r]+plan_id+'"]').next(".exercise-content").html(results[r]);
         }
         //days
             var days= $('span[id="exercise-days-'+plan_id+'-'+exercise_id+'"]').html();
@@ -193,7 +193,12 @@ $(document).ready(function() {
                         //Change data-dismiss to be able to close pop-up and trigger click to close it
                         close.attr("data-dismiss","modal").trigger(esc);
                         close.attr("data-dismiss","");
-                        location.reload();
+                        message_notification="Message(s) sent correctly!";
+                        message_type="success";
+                        message_title="Message:";
+                        message_delay=2000;
+                        notify(message_notification,message_type,message_title,message_delay);
+                        setTimeout(reload,4000);
                     }
 
 
@@ -202,7 +207,10 @@ $(document).ready(function() {
 
     });
 //--------------------------------------------------------------------
-
+function reload()
+{
+    location.reload();
+}
 
 //---------------------------------------Take care of messages-----------
     $('button[id="open-message"]').click(function()
@@ -585,12 +593,6 @@ $(document).ready(function() {
         notify(message_notification,message_type,message_title,message_delay);
     }
 });
-
-
-function reloadPage()
-{
-    location.reload()
-}
 
 
 //function that generates the notifications

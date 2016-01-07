@@ -171,7 +171,7 @@
                                                 </span>
                                                 </div>
                                             </div>
-                                            <div class="well  col-xs-12 col-lg-6  col-md-6 col-sm-6">
+                                            <div class="well  col-lg-6  col-md-6 col-sm-6  col-xs-12">
                                                 <div class="text-left ">
                                                     <span><b>Public notes:</b></span>
                                                 <span id="edit-public_note-<?= $count ?>">

@@ -12,18 +12,23 @@ abstract class Person extends CI_Model{
     protected $contacts= array();
 
 
+    public function getPatients()
+    {
+        $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
+        return $patients;
+    }
+
     public function getAppointmentsInformation($user_type){
         $appointments = $this->DB_Helper->getClassById($this->id, "appointment",$user_type); //add appointments to array to check on the view
-        $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
 
-        return array("appointments" => $appointments, "patients" => $patients);
+        return array("appointments" => $appointments, "patients" => $this->getPatients());
     }
     public function getMessagesInformation($user_type){
         checkSessionStart(); //check if user session has started, and if not start the session
         $user_data = $_SESSION['user_data']; //get user data
         if($user_type=="DOCTOR")
         {
-            $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
+            $patients = $this->getPatients();
             $search = array();
             foreach($patients as $patient)
             {
@@ -47,6 +52,7 @@ abstract class Person extends CI_Model{
         $plans = $this->DB_Helper->get("plan");
         $values=array();
         $final_result = array();
+        $patients = $this->getPatients();
         foreach($plans as $plan)
         {
             $values['plan']=$plan;
@@ -54,7 +60,7 @@ abstract class Person extends CI_Model{
             $final_result[]=$values;
             $values=array();
         }
-        return array("plans"=>$final_result);
+        return array("plans"=>$final_result,"patients"=>$patients);
     }
 
     // GET & SET

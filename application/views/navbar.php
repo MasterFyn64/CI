@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-COMPATIBLE" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
-    <link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.css">
+    <link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap.min.css">
    <!--<link rel="stylesheet" href="<?=base_url()?>assets/css/bootstrap_material.css">-->
     <link rel="stylesheet" href="<?=base_url()?>assets/css/index.css">
     <link rel="stylesheet" href="<?=base_url()?>assets/css/animate.css">

@@ -11,7 +11,7 @@ class Statistics extends CI_Controller {
             $id = $user_data->getId();
 
             $this->load->view('navbar', getUserSessionDataArray());
-            $this->load->view('statistics');
+            $this->load->view('statistics',array('patients'=>$user_data->getPatients()));
             $this->load->view('footer');
             $this->load->view("loadstatistics");
         }

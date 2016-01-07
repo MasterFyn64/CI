@@ -1,6 +1,41 @@
 <div class="page-name">Statistics</div>
 <div class="container-fluid">
     <div class="row">
+        <div class="col-lg-offset-8 col-lg-3 col-md-offset-9 col-md-2 col-sm-offset-8  col-sm-3 col-xs-12">
+            <?php
+            if($user_type=="DOCTOR")
+            {?>
+                <div class="pull-right  hidden-xs text-center">
+                    <select class="form-control" >
+
+                        <?php
+                        foreach ($patients as $patient) {
+                            ?>
+                            <option value="<?= $patient['id'] ?>"><?= $patient['name'] ?> </option>
+                            <?php
+                        }
+                        ?>
+                    </select><br/>
+                </div>
+                <?php
+                ?>
+                <div class="visible-xs text-center">
+                    <select class="form-control" >
+
+                        <?php
+                        foreach ($patients as $patient) {
+                            ?>
+                            <option value="<?= $patient['id'] ?>"><?= $patient['name'] ?> </option>
+                            <?php
+                        }
+                        ?>
+                    </select>
+                </div>
+                <?php
+
+            }
+            ?>
+        </div>
         <div id="1" class="col-lg-12 col-md-12 col-xs-12">
           <div>
               <div id="pieDiv" style=""></div>

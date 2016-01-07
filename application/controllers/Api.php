@@ -75,7 +75,7 @@ class Api extends CI_Controller {
             if(!$error)
             {
                 if($page=="profile")
-                $this->DB_Helper->update('person',array($_POST['property']=>$_POST['value']),array('id'=>$_SESSION['id']));
+                    $this->DB_Helper->update('person',array($_POST['property']=>$_POST['value']),array('id'=>$_SESSION['id']));
                 else if ($page=="appointment")
                 {
                     $result= explode('-',$_POST['property']);

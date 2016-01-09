@@ -12,11 +12,6 @@ abstract class Person extends CI_Model{
     protected $contacts= array();
 
 
-    public function getPatients()
-    {
-        $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
-        return $patients;
-    }
 
     public function getAppointmentsInformation($user_type){
         $appointments = $this->DB_Helper->getClassById($this->id, "appointment",$user_type); //add appointments to array to check on the view

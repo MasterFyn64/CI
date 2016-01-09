@@ -5,8 +5,12 @@ require_once __DIR__.'/Person.php';
 class Doctor extends Person{
 
     protected $room_number;
-    //FRANCISCO GERA ISSO AUTOMATICAMENTE PA TODAS AS CLASSES
-
+    
+	public function getPatients()
+    {
+        $patients = $this->DB_Helper->get_join(array("user", "person"), "user.person_id = person.id", array("user.doctor_id" => $this->id));
+        return $patients;
+    }
     public function setRoomNumber($room_number)
     {
         $this->id = $room_number;

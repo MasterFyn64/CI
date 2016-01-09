@@ -199,8 +199,6 @@ static $DOCTOR = "doctor";
     }
 
     public function get_join($tables,$condition ,$where,$cast=null,$order=null,$table_order=null,$multiple_search=null){
-
-
         $this->db->select('*');
         $this->db->from($tables[0]);
 
@@ -216,10 +214,9 @@ static $DOCTOR = "doctor";
 
         if($where!=null)
         {
-
             $this->db->where($where);
             if($multiple_search!=null) {
-                for ($i = 0; $i < count($multiple_search[1]); $i++) {
+                for ($i = 0; $i < count($multiple_search[1]); $i++) { // first value is the table and the second is the value
                     if($i==0)
                         $this->db->where($multiple_search[0], $multiple_search[1][$i]);
                     else

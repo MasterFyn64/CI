@@ -340,9 +340,9 @@
                                             </p>
 
                                             <div class="input-group">
-                                                <button  exercise-instance-id="<?=$exercise['id']?>" id="<?= $plan_position ?>" data-exercise="<?=$count_exercises?>" data-obtain="exercise-button"  class=" btn btn-primary btn-default btn-group-justified <?php if ($count_exercises == 0) echo "disabled " ?>"><?= $name ?></button>
-                                                <span class="input-group-btn">
-                                                    <input  exercise-instance-id="<?=$exercise['id']?>" id="<?= $plan_position ?>"  class="btn btn-default btn-danger" value="x">
+                                                <button  exercise-instance-id="<?=$exercise['id']?>" id="<?= $plan_position ?>" data-exercise="<?=$count_exercises?>" data-obtain="exercise-button"  class=" input-group btn btn-sm btn-primary btn-default btn-group-justified <?php if ($count_exercises == 0) echo "disabled " ?>"><?= $name ?></button>
+                                               <span class="input-group-btn">
+                                                    <input  exercise-instance-id="<?=$exercise['id']?>" id="<?= $plan_position ?>"  class=" btn btn-sm btn-default btn-danger" value="x">
                                                 </span>
                                             </div>
                                             <br/>

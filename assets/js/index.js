@@ -114,9 +114,10 @@ $(document).ready(function() {
 
         $(this).parent().parent().children('div[class="input-group"]').each(function()
         {
-            $(this).children('button').attr('class','btn btn-default btn-primary btn-group-justified');
+            $(this).children('button').attr('class','btn btn-sm btn-default btn-primary btn-group-justified');
         });
-        $(this).attr('class','btn btn-primary btn-group-justified disabled');
+
+        $(this).attr('class','btn btn-sm btn-primary btn-group-justified disabled');
         var exercise_id =$(this).attr('data-exercise');
         var s = ['duration-','repetitions-','name-','description-'];
 
@@ -615,7 +616,6 @@ function reload()
 
         switch (field_name) //checks what field will be updated
         {
-
             case 'description':
             {
                 if(!changed_value.match(/^[a-zA-Z ]+$/)) {
@@ -678,7 +678,6 @@ function reload()
                 }
             }break;
             case 'contact':{
-                //Confirm thisssss!!!!!!
                 if(!changed_value.match(/^[1-9]+$/)) {
                     error = true;
                     message_notification="Insert a valid contact!";
@@ -688,10 +687,22 @@ function reload()
                 }
             }break;
             case 'repetitions':{
-                //missing this verification!!!
+                if(!changed_value.match(/^[1-9]+$/)) {
+                    error = true;
+                    message_notification="Insert a valid contact!";
+                    message_type="info";
+                    message_title="Invalid contact:";
+                    message_delay=2000;
+                }
             }break;
             case 'duration':{
-                //missing this verification!!!
+                if(!changed_value.match(/^[1-9]+$/)) {
+                    error = true;
+                    message_notification="Insert a valid contact!";
+                    message_type="info";
+                    message_title="Invalid contact:";
+                    message_delay=2000;
+                }
              }break;
         }
         if(!error)

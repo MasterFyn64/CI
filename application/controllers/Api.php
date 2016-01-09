@@ -9,19 +9,17 @@ class Api extends CI_Controller {
 public  function  removeInstance()
 {
     getUserSessionDataArray();
-    $doctor_id = $_SESSION['id'];
     if(!empty($_SESSION['user_data']) &&  !empty($_POST['remove'])) //check if the data isset and proceeds to saving data
     {
         $query=$this->DB_Helper->get('exerciseinstance',array('id'=>$_POST['remove']));//get exercise
         if(count($query)==1) {
-            $query=$this->DB_Helper->delete('exerciseinstance',array('id'=>$_POST['remove'])); //remove instance of exercise
+            $this->DB_Helper->delete('exerciseinstance',array('id'=>$_POST['remove'])); //remove instance of exercise
             echo "SUCCESS";
         }
         else
         {
             echo "ERROR";
         }
-
     }
     else
     {
@@ -99,23 +97,44 @@ public  function  removeInstance()
                 }break;
                 case "private_note":
                 {
-                  //check this
+                    if(!preg_match("/^[a-zA-Z1-9 ]+$/", $_POST['value']))
+                    {
+                        echo "Wrong Private Note!";
+                        $error=true;
+                    }
+
                 }break;
                 case "public_note":
                 {
-                  //check this
+                    if(!preg_match("/^[a-zA-Z1-9 ]+$/", $_POST['value']))
+                    {
+                        echo "Wrong Public Note!";
+                        $error=true;
+                    }
                 }break;
                 case "description":
                 {
-                  //check this
+                    if(!preg_match("/^[a-zA-Z1-9 ]+$/", $_POST['value']))
+                    {
+                        echo "Wrong Public Note!";
+                        $error=true;
+                    }
                 }break;
                 case "repetitions":
                 {
-                  //check this
+                    if(!preg_match("/^[1-9]+$/", $_POST['value']))
+                    {
+                        echo "Wrong repetition";
+                        $error=true;
+                    }
                 }break;
                 case "duration":
                 {
-                  //check this
+                     if(!preg_match("/^[1-9]+$/", $_POST['value']))
+                     {
+                         echo "Wrong duration";
+                         $error=true;
+                     }
                 }break;
             }
 

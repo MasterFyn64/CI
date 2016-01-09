@@ -3,7 +3,7 @@
 
 <div class="container-fluid">
     <div class="row ">
-        <div class="register-menu well col-xs-7 col-xs-offset-2 col-md-6 col-md-offset-3 col-lg-5 col-lg-offset-3">
+        <div class="register-menu well col-xs-8 col-xs-offset-2 col-sm-8 col-sm-offset-2 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">
 
             <?php
             $attributes = array( 'id' => 'form1');

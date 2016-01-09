@@ -6,7 +6,28 @@ class Api extends CI_Controller {
     {
 
     }
+public  function  removeInstance()
+{
+    getUserSessionDataArray();
+    $doctor_id = $_SESSION['id'];
+    if(!empty($_SESSION['user_data']) &&  !empty($_POST['remove'])) //check if the data isset and proceeds to saving data
+    {
+        $query=$this->DB_Helper->get('exerciseinstance',array('id'=>$_POST['remove']));//get exercise
+        if(count($query)==1) {
+            $query=$this->DB_Helper->delete('exerciseinstance',array('id'=>$_POST['remove'])); //remove instance of exercise
+            echo "SUCCESS";
+        }
+        else
+        {
+            echo "ERROR";
+        }
 
+    }
+    else
+    {
+        echo "ERROR";
+    }
+}
     public function remove()
     {
         getUserSessionDataArray();

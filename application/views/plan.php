@@ -188,9 +188,9 @@
                             </div><!-- /.modal -->
 
 
-                            <div class="pull-right  hidden-xs text-center">
-                                <select class="form-control" >
-                                    <option value="">All</option>
+                            <div class="pull-right  hidden-xs text-center "">
+                                <select class="form-control" id="select-patient" >
+                                    <option value="all">All</option>
                                     <?php
                                     foreach ($patients as $patient) {
                                         ?>
@@ -202,7 +202,7 @@
                             </div>
                             <div class="visible-xs text-center">
                                 <select class="form-control" id="select-patient">
-
+                                    <option value="all">All</option>
                                     <?php
                                     foreach ($patients as $patient) {
                                         ?>
@@ -216,12 +216,18 @@
                         }?>
                     </div>
                     <br><br>
-                    <div class="text-center">
-                        <button class = "btn btn-primary " data-toggle = "modal" data-target = "#newplan">
-                            New Plan
-                        </button>
-                        <br><br>
-                    </div>
+                    <?php
+                    if($user_type=="DOCTOR") {
+                        ?>
+                        <div class="text-center">
+                            <button class="btn btn-primary " data-toggle="modal" data-target="#newplan">
+                                New Plan
+                            </button>
+                            <br><br>
+                        </div>
+                        <?php
+                    }
+                    ?>
                      <!--preview bar-->
                     <div class="btn-group btn-group-lg btn-group-justified ">
                         <div class="btn-group">
@@ -271,9 +277,9 @@
                             $position_first="";
                             $description_first = "";
                             $first_id="";
-
                             ?>
-                            <div class="btn-group btn-group-lg btn-group-justified " id="header-plan-<?= $plan_position ?>">
+                            <div class="btn-group btn-group-lg btn-group-justified" id="header-plan-<?= $plan_position ?>">
+                                <span class="hidden" user-id="<?=$plan['plan']['user_id']?>"></span>
                                 <div class="btn-group">
                                     <button data-toggle="collapse" type="button" class="btn btn-default btn-primary"
                                             data-parent="#main-container-plans" href="#plan-<?= $plan_position ?>">
@@ -303,6 +309,7 @@
                                         <button data-plan-id-exercise="<?=$plan['plan']['id']?>" data-target="#add-exercise" data-toggle="modal" class=" btn btn-primary btn-default btn-group-justified">Add Exercise</button><br>
                                         <?php
                                         $count_exercises = 0;
+                                        $exercise=""; //reset exercise values
                                         foreach ($plan["exercises"] as $exercise)
                                         {
                                             if ($count_exercises == 0) {
@@ -332,21 +339,28 @@
                                                 <label id="days"><?=$exercise['days']?></label>
                                             </p>
 
-                                            <button  exercise-instance-id="<?=$exercise['id']?>" id="<?= $plan_position ?>" data-exercise="<?=$count_exercises?>" data-obtain="exercise-button"  class=" btn btn-primary btn-default btn-group-justified <?php if ($count_exercises == 0) echo "disabled " ?>"><?= $name ?></button>
-                                            <button  exercise-instance-id="<?=$exercise['id']?>"  class="btn btn-default btn-danger pull-right">x</button>
-                                            <span class="hidden" id="saved-duration-<?php echo $position; ?>" ><?= $duration ?></span>
+                                            <div class="input-group">
+                                                <button  exercise-instance-id="<?=$exercise['id']?>" id="<?= $plan_position ?>" data-exercise="<?=$count_exercises?>" data-obtain="exercise-button"  class=" btn btn-primary btn-default btn-group-justified <?php if ($count_exercises == 0) echo "disabled " ?>"><?= $name ?></button>
+                                                <span class="input-group-btn">
+                                                    <input  exercise-instance-id="<?=$exercise['id']?>" id="<?= $plan_position ?>"  class="btn btn-default btn-danger" value="x">
+                                                </span>
+                                            </div>
+                                            <br/>
+                                             <span class="hidden" id="saved-duration-<?php echo $position; ?>" ><?= $duration ?></span>
                                             <span class="hidden" id="saved-repetitions-<?php echo $position; ?>"><?= $repetitions ?></span>
                                             <span class="hidden" id="saved-name-<?php echo $position; ?>"><?= $name ?></span>
-                                            <span class="hidden" id="saved-days-<?php echo $position; ?>"><?= $days ?></span> <br/>
+                                            <span class="hidden" id="saved-days-<?php echo $position; ?>"><?= $days ?></span>
                                             <span class="hidden" id="saved-description-<?php echo $position; ?>"><?= $description ?></span>
                                             <?php $count_exercises++;
+
                                         } ?>
                                     </div>
 
                                     <div class="col-md-6" id="<?= $plan_position ?>">
 
                                         <p>
-                                            <label id="exercise-patient-<?php echo $position_first; ?>" >Patient: </label><span class="exercise-content"><?= $plan['user_data']['name'] ?></span>
+                                            <label id="exercise-patient-<?php echo $position_first; ?>" >Patient: </label>
+                                            <span class="exercise-content"><?= $plan['user_data']['name'] ?></span>
                                         </p>
                                         <p>
                                             <label id="exercise-patient-<?php echo $position_first; ?>" >Address: </label><span class="exercise-content"><?= $plan['user_data']['address'] ?></span>
@@ -356,7 +370,8 @@
                                         </p>
                                         <hr/>
                                         <p>
-                                            <label id="name-<?php echo $plan_position; ?>" >Name: </label><span class="exercise-content"><?= $name_first ?></span>
+                                            <label id="name-<?php echo $plan_position; ?>" >Name: </label>
+                                            <span id="name-<?php echo $plan_position; ?>" class="exercise-content"><?= $name_first ?></span>
                                         </p>
                                         <p instance-id="<?=$first_id?>">
                                             <label id="repetitions-<?php echo $plan_position; ?>" >Repetitions:</label>
@@ -375,7 +390,7 @@
                                         </p>
                                         <p>
                                             <label id="description-<?php echo $plan_position; ?>" >Description: </label>
-                                            <span class="exercise-content"><?= $description_first ?></span>
+                                            <span id="description-<?php echo $plan_position; ?>" class="exercise-content"><?= $description_first ?></span>
                                         </p>
                                         <p instance-id="<?=$first_id?>">
                                             <label id="duration-<?php echo $plan_position; ?>" >Duration: </label>

@@ -1,6 +1,61 @@
 $(document).ready(function() {
-/*------------------------------------------------------*/
-    $('select[name="choose-exercise"]').change(function()
+
+    /* plans */
+    $('input[exercise-instance-id]').click(function()
+    {
+        var exercise_instance = $(this).attr('exercise-instance-id');
+       $('div[id="'+ $(this).attr('id')+'"]').children('p').children('span[class="exercise-content"]').each(function()
+       {
+           $(this).parent().children('span[id^="repetitions"]').html("");
+           $(this).parent().children('span[id^="name"]').html("");
+           $(this).parent().children('span[id^="description"]').html("");
+           $(this).parent().children('span[id^="duration"]').html("");
+       });
+        var s = $(this);
+        $.post('/CI/Api/removeInstance',
+            {
+                remove : exercise_instance
+            },
+            function(data,status)
+            {
+                console.log(data);
+                if(data=="SUCCESS")
+                {
+                    s.parent().parent().next().remove(); //remove br
+                    s.parent().parent().remove(); //remove node
+                }
+
+            }
+        )
+    });
+
+    $('select[id="select-patient"]').change(function() { //search plans using patient name
+        var option_selected = $(this).val();
+        console.log(option_selected);
+
+        $('span[user-id]').each(function()
+        {
+            if($(this).attr('user-id')!="all")
+            {
+                if($(this).attr('user-id')==option_selected)
+                {
+                    $(this).parent().attr('class','btn-group btn-group-lg btn-group-justified');
+                }
+                else{
+                    $(this).parent().attr('class','hidden');
+                    var plan_position = $(this).parent().attr('id');
+                    var splitted=  plan_position.split('-');
+                    $('div[id="plan-'+splitted[2]+'"]').attr('class','collapse');
+                }
+            }
+            if(option_selected=="all") // when the optin selected is all (show everything)
+            {
+                $(this).parent().attr('class','btn-group btn-group-lg btn-group-justified');
+            }
+        });
+    });
+
+    $('select[name="choose-exercise"]').change(function() //choose what method will use (or enter new exercise or choose one)
     {
         var option_selected = $(this).val();
         console.log(option_selected);
@@ -17,16 +72,17 @@ $(document).ready(function() {
 
     });
 
-    $('button[data-plan-id-exercise]').click(function()
+    $('button[data-plan-id-exercise]').click(function()  //update planID to add new exercises
     {
-       var value = $(this).attr('data-plan-id-exercise');
+        var value = $(this).attr('data-plan-id-exercise');
         $('input[id="planID"]').attr('value',value);
     });
+
     $('button[plan-id]').click(function() //change plan to remove to pop-up
     {
         var remove = $(this).attr('plan-id');
         $('div[id="remove-plan"]').children().children().children('div[class="modal-footer"]').children('button[plan-id]').attr('plan-id',remove);
-  });
+    });
 
     $('button[form="remove-plan"]').click(function() //confirm and remove plan
     {
@@ -41,22 +97,25 @@ $(document).ready(function() {
             },
             function(data,status)
             {
-               if(data="SUCCESS")
-               {
-                   var close = $('#remove-plan');
-                   close.attr("data-dismiss","modal").trigger(esc);
-                   close.attr("data-dismiss","");
-                   location.reload();
-               }
+                if(data="SUCCESS")
+                {
+                    var close = $('#remove-plan');
+                    close.attr("data-dismiss","modal").trigger(esc);
+                    close.attr("data-dismiss","");
+                    location.reload();
+                }
             });
 
     });
-/*------------------------------------------------------*/
-    /* plans */
+
     $("button[data-obtain='exercise-button']").click(function()
     {
         var plan_id = $(this).attr('id');
-        $(this).parent().children('button').attr('class','btn btn-primary btn-group-justified');
+
+        $(this).parent().parent().children('div[class="input-group"]').each(function()
+        {
+            $(this).children('button').attr('class','btn btn-default btn-primary btn-group-justified');
+        });
         $(this).attr('class','btn btn-primary btn-group-justified disabled');
         var exercise_id =$(this).attr('data-exercise');
         var s = ['duration-','repetitions-','name-','description-'];

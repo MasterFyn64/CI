@@ -139,7 +139,7 @@
                             if($user_type =="DOCTOR")
                             {
                                 ?>
-                                <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?= $count ?>" send-message-to="<?=$id?>">
+                                <div class="btn-group btn-group-lg btn-group-justified " id="header-messages-<?= $count ?>" send-appointment-id="<?=$id?>">
                                     <div class="btn-group">
                                         <button data-toggle="collapse" type="button" class="btn btn-default <?= $color ?>"
                                                 data-parent="#main-container-messages" href="#messages-<?= $count ?>">
@@ -172,23 +172,24 @@
                                 <div id="messages-<?= $count ?>" class="collapse <?php if ($count == 0) echo " in" ?>">
                                     <div class="container-fluid">
                                         <div class="row">
-                                            <span class="hidden" id="send-message-to"><?=$id?></span>
+                                            <span class="hidden" id="send-appointment-id"><?=$id?></span>
                                             <div class=" well  col-lg-12  col-md-12  col-sm-12  col-xs-12  ">
                                                 <div class="text-left">
                                                     <span><b>Description:</b></span>
                                                 <span id="edit-description-<?= $count ?>">
+                                                    <input type="text" class="hidden" value="<?= $description ?>" id="description-<?= $count ?>">
                                                     <span value="<?= $description ?>" id="description-<?= $count ?>"><?= $description ?></span>
                                                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-description-<?= $count ?>" value="description-<?= $count ?>"></span>
                                                     <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-description-<?= $count ?>" value="description-<?= $count ?>" id="save"></span>
                                                     <span class="glyphicon glyphicon-profile glyphicon-remove text-danger hidden" name="cancel-description-<?= $count ?>" value="description-<?= $count ?>" id="remove"></span><br/>
 
                                                     <span><b>Type:</b></span>
-                                                <span id="edit-description-<?= $count ?>">
-                                                    <span value="<?= $type ?>" id="description-<?= $count ?>"><?= $type ?></span>
+                                                <span>
+                                                    <span><?= $type ?></span>
                                                 </span><br/>
                                                      <span><b>Room Number:</b></span>
-                                                <span id="edit-description-<?= $count ?>">
-                                                    <span value="<?= $type ?>" id="description-<?= $count ?>"><?= $room_number ?></span>
+                                                <span>
+                                                    <span><?= $room_number ?></span>
                                                 </span>
                                                 </div>
                                             </div>
@@ -199,6 +200,7 @@
                                                 <div class="text-left ">
                                                     <span><b>Private notes:</b></span>
                                                 <span id="edit-private_note-<?= $count ?>">
+                                                    <input type="text" class="hidden" value="<?= $private_note ?>" id="private_note-<?= $count ?>">
                                                     <span value="<?= $private_note ?>" id="private_note-<?= $count ?>"><?= $private_note ?></span>
                                                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-private_note-<?= $count ?>" value="private_note-<?= $count ?>"></span>
                                                     <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-private_note-<?= $count ?>" value="private_note-<?= $count ?>" id="save"></span>
@@ -210,6 +212,7 @@
                                                 <div class="text-left ">
                                                     <span><b>Public notes:</b></span>
                                                 <span id="edit-public_note-<?= $count ?>">
+                                                    <input type="text" class="hidden" value="<?= $public_note ?>" id="public_note-<?= $count ?>">
                                                     <span value="<?= $public_note ?>" id="public_note-<?= $count ?>"><?= $public_note ?></span>
                                                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-public_note-<?= $count ?>" value="public_note-<?= $count ?>"></span>
                                                     <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-public_note-<?= $count ?>" value="public_note-<?= $count ?>" id="save"></span>
@@ -243,7 +246,7 @@
                                         <button data-toggle="collapse" type="button" class="btn btn-default <?= $color ?>"
                                                 data-parent="#main-container-messages" href="#messages-<?= $count ?>">
                                             <span class="glyphicon glyphicon-chevron-down"></span>
-                                            <span class="hidden" send-message-to=""></span>
+                                            <span class="hidden" send-id-to=""></span>
                                         </button>
                                     </div>
 

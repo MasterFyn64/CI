@@ -1,5 +1,57 @@
 $(document).ready(function() {
+/*------------------------------------------------------*/
+    $('select[name="choose-exercise"]').change(function()
+    {
+        var option_selected = $(this).val();
+        console.log(option_selected);
+        if(option_selected=="insert-exercise")
+        {
+            $('select[id="select-exercise"]').attr('class','hidden');
+            $('div[id="insert-exercise"]').attr('class','');
+        }
+        else if (option_selected=="select-exercise")
+        {
+            $('select[id="select-exercise"]').attr('class','form-control');
+            $('div[id="insert-exercise"]').attr('class','hidden');
+        }
 
+    });
+
+    $('button[data-plan-id-exercise]').click(function()
+    {
+       var value = $(this).attr('data-plan-id-exercise');
+        $('input[id="planID"]').attr('value',value);
+    });
+    $('button[plan-id]').click(function() //change plan to remove to pop-up
+    {
+        var remove = $(this).attr('plan-id');
+        $('div[id="remove-plan"]').children().children().children('div[class="modal-footer"]').children('button[plan-id]').attr('plan-id',remove);
+  });
+
+    $('button[form="remove-plan"]').click(function() //confirm and remove plan
+    {
+        //esc key
+        var esc = jQuery.Event("keydown");
+        esc.which = 27;
+
+        var remove = $(this).attr('plan-id');
+        $.post('/CI/Api/remove',
+            {
+                remove:remove
+            },
+            function(data,status)
+            {
+               if(data="SUCCESS")
+               {
+                   var close = $('#remove-plan');
+                   close.attr("data-dismiss","modal").trigger(esc);
+                   close.attr("data-dismiss","");
+                   location.reload();
+               }
+            });
+
+    });
+/*------------------------------------------------------*/
     /* plans */
     $("button[data-obtain='exercise-button']").click(function()
     {
@@ -7,23 +59,38 @@ $(document).ready(function() {
         $(this).parent().children('button').attr('class','btn btn-primary btn-group-justified');
         $(this).attr('class','btn btn-primary btn-group-justified disabled');
         var exercise_id =$(this).attr('data-exercise');
-        var s = ['exercise-duration-','exercise-repetitions-','exercise-name-','exercise-description-'];
+        var s = ['duration-','repetitions-','name-','description-'];
 
         var results =[];
         for(r=0;r< s.length;r++)
         {
-            results[r]=$('span[id="'+s[r]+plan_id+'-'+exercise_id+'"]').html();
+            results[r]=$('span[id="saved-'+s[r]+plan_id+'-'+exercise_id+'"]').html();
 
         }
         for(r=0;r< s.length;r++)
         {
+            //change exercise position and plan to change em real time
+            var plan_exercise_id =s[r]+plan_id+"-"+exercise_id;
+
             $('label[id="'+s[r]+plan_id+'"]').next(".exercise-content").html(results[r]);
+            $('label[id="'+s[r]+plan_id+'"]').next(".exercise-content").attr({'value':results[r],'id':plan_exercise_id});//span
+            $('label[id="'+s[r]+plan_id+'"]').next(".exercise-content").next().attr({'value':results[r],'id':plan_exercise_id});//input
+            $('label[id="'+s[r]+plan_id+'"]').parent().attr("instance-id",$(this).attr("exercise-instance-id"));
+
+
+
+            $('label[id="'+s[r]+plan_id+'"]').parent().children('span[id="edit"]').attr('name','edit-'+plan_exercise_id);
+            $('label[id="'+s[r]+plan_id+'"]').parent().children('span[id="edit"]').attr('value',plan_exercise_id);
+            $('label[id="'+s[r]+plan_id+'"]').parent().children('span[id="remove"]').attr('name','cancel-'+plan_exercise_id);
+            $('label[id="'+s[r]+plan_id+'"]').parent().children('span[id="remove"]').attr('value',plan_exercise_id);
+            $('label[id="'+s[r]+plan_id+'"]').parent().children('span[id="save"]').attr('name','save-'+plan_exercise_id);
+            $('label[id="'+s[r]+plan_id+'"]').parent().children('span[id="save"]').attr('value',plan_exercise_id);
         }
         //days
-            var days= $('span[id="exercise-days-'+plan_id+'-'+exercise_id+'"]').html();
+            var days= $('span[id="saved-days-'+plan_id+'-'+exercise_id+'"]').html();
 
             var i=0;
-            $('div[id="exercise-days-'+plan_id+'"]').children('div').each(function()
+            $('div[id="days-'+plan_id+'"]').children('div').each(function()
             {
                 if(days[i]==0)
                     $(this).children().attr('class','btn btn-default btn-primary');
@@ -72,7 +139,7 @@ $(document).ready(function() {
         var bar = "header-messages-"+number;
         var state =$(this).attr('value');
 
-        var message_id=  $('div[id="'+bar+'"]').attr("send-message-to");
+        var appointment_id=  $('div[id="'+bar+'"]').attr("send-appointment-id");
 
         if(state=="pending"||state=="done"||state=="cancelled"||state=="waiting")
         {
@@ -120,12 +187,20 @@ $(document).ready(function() {
 
             $.post('/CI/Api/updatestate',
                 {
-                    changing:message_id,
+                    changing:appointment_id,
                     newstate:state
                 },
                 function(data,status)
                 {
-                    //
+                    if(data=="SUCCESS")
+                    {
+                        message_notification="State updated successfully!";
+                        message_type="success";
+                        message_title="Information: ";
+                        message_delay=2000;;
+
+                        notify(message_notification,message_type,message_title,message_delay);
+                    }
                 }
             );
         }
@@ -433,7 +508,8 @@ function reload()
         var field_name = edit_link.attr('value');
 
         edit_link.attr('class',"glyphicon glyphicon-profile glyphicon-edit hidden")
-        $('span[id="'+field_name+'"]').attr('contenteditable',true).focus();
+        $('input[id="'+field_name+'"]').attr('class',"").focus();
+        $('span[id="'+field_name+'"]').attr('class',"hidden");
         $('span[name="save-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-ok text-success");
         $('span[name="cancel-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-remove text-danger");
 
@@ -444,19 +520,39 @@ function reload()
 
         var  edit_link = $(e.target);
         var field_name= edit_link.attr('value');
-        $('span[id="'+field_name+'"]').attr('contenteditable',false);
-        var changed_value=$('span[id="'+field_name+'"]').html();
+        //change input to span
+        $('span[id="'+field_name+'"]').attr('class',"exercise-content");
+        $('input[id="'+field_name+'"]').attr('class',"hidden");
+        var changed_value=$('input[id="'+field_name+'"]').val();
+        $('span[id="'+field_name+'"]').html(changed_value);
 
         //in case of errors save the last value
         var last_value = $('span[id="'+field_name+'"]').attr('value');
 
+
         var error=false;
         message_notification=message_type=message_title=message_delay="";
 
-
         //needed to update appointments information
-        var message_id=  $(this).parent().parent().parent().parent().children('span[id="send-message-to"]').html();
-        var data_value=  $('.page-name').attr('id');
+         var data_value=  $('.page-name').attr('id');
+
+        if(data_value=="appointment")//need to update appointments
+            var id=  $(this).parent().parent().parent().parent().children('span[id="send-appointment-id"]').html();
+        else if(data_value=="plan") //need to update exercises
+        {
+            //proceed to the change of changed value
+            var exercise_position=$(this).attr('name');
+            var result = exercise_position.split('-');
+            var plan = result[2];
+            var exercise_position = result[3];
+            var fieldname = field_name.split('-');
+            fieldname = fieldname[0];
+
+            var complete_search = 'saved-'+fieldname+'-'+plan+'-'+exercise_position;
+            $('span[id="'+complete_search+'"]').html(changed_value);
+            var id = $(this).parent().attr('instance-id');
+        }
+
 
         switch (field_name) //checks what field will be updated
         {
@@ -532,22 +628,47 @@ function reload()
                     message_delay=2000;
                 }
             }break;
+            case 'repetitions':{
+                //missing this verification!!!
+            }break;
+            case 'duration':{
+                //missing this verification!!!
+             }break;
         }
         if(!error)
         {
             //Used to take the timeout on cancelling the values change
             $('span[id="'+field_name+'"]').attr('value', changed_value); // update data
+            $('input[id="'+field_name+'"]').attr('value', changed_value); // update data
 
             //updates database
             $.post("/CI/api/updatedata",
                 {
                     value: changed_value,
                     property:field_name,
-                    changing:message_id,
+                    changing:id,
                     fromwhere:data_value //from where should be updated
                 },
                 function(data, status){
-                   //
+                    console.log(data);
+                  if(data=="SUCCESS")
+                  {
+                      message_notification="Data updated successfully!";
+                      message_type="success";
+                      message_title="Information: ";
+                      message_delay=2000;;
+
+                      notify(message_notification,message_type,message_title,message_delay);
+                  }
+                    else
+                  {
+                      message_notification="Reload the page and try again!";
+                      message_type="danger";
+                      message_title="Error:";
+                      message_delay=2000;;
+
+                      notify(message_notification,message_type,message_title,message_delay);
+                  }
                 });
         }
         else
@@ -557,6 +678,7 @@ function reload()
             //Used to take the timeout on cancelling the values change
             $('span[id="'+field_name+'"]').attr('value', last_value); // update data
             $('span[id="'+field_name+'"]').html(last_value);
+            $('input[id="'+field_name+'"]').val(last_value);
         }
 
         $('span[name="save-'+field_name+'"]').attr('class',"glyphicon glyphicon-profile glyphicon-ok text-success hidden");
@@ -570,7 +692,8 @@ function reload()
     {
         var  edit_link = $(e.target);
         var field_name= edit_link.attr('value');
-        $('span[id="'+field_name+'"]').attr('contenteditable',false);
+        $('span[id="'+field_name+'"]').attr('class',"");
+        $('input[id="'+field_name+'"]').attr('class',"hidden");
 
         //returns the last entered value without going to the database
         $('span[id="'+field_name+'"]').html($('span[id="'+field_name+'"]').attr('value'));

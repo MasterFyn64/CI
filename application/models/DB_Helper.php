@@ -176,6 +176,12 @@ static $DOCTOR = "doctor";
     }
 
 
+    public function delete($table,$values=null)
+    {
+        $this->db->delete($table, $values);
+        return $this->db->error();
+    }
+
     //get table by table name as values
     public function get($table, $values=null){
         if($values!=null)
@@ -188,6 +194,7 @@ static $DOCTOR = "doctor";
         {
             return $query->result_array();
         }
+        else
         return null;
     }
 
@@ -209,6 +216,7 @@ static $DOCTOR = "doctor";
 
         if($where!=null)
         {
+
             $this->db->where($where);
             if($multiple_search!=null) {
                 for ($i = 0; $i < count($multiple_search[1]); $i++) {
@@ -245,6 +253,7 @@ static $DOCTOR = "doctor";
     public function update($table, $data,$where)
     {
        $this->db->update($table, $data,$where);
+        return $this->db->error();
     }
 
 }

@@ -86,7 +86,10 @@ abstract class Person extends CI_Model{
             //var to iterate the user_data
             $count++;
         }
-        return array("plans"=>$final_result,"patients"=>$patients);
+        //get exercises
+        $exercises = $this->DB_Helper->get('exercise');
+
+        return array("plans"=>$final_result,"patients"=>$patients,"defined_exercises"=>$exercises);
     }
 
     // GET & SET

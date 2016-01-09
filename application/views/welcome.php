@@ -55,26 +55,24 @@
 </div>
 
 <div class="container">
+    <br>
     <div class="row">
         <div class="col-lg-4 col-md-6  col-xs-12">
             <img class="img-responsive center-block img-circle" src="<?=base_url()?>assets/images/1.png">
             <div class="text-center">
-                O utilizador poderá visualizar as suas estatisticas de forma bastante simples e
-            com a possibilidade de filtrar as suas actividades num determinado intervalo de tempo.
+                Start the new year in great shape by grabbing some weights and put out all the sugar from this past christmas.
             </div>
         </div>
         <div class="col-lg-4 col-md-6  col-xs-12">
-            <img class="img-responsive center-block img-circle" src="<?=base_url()?>assets/images/1.png">
+            <img class="img-responsive center-block img-circle" src="<?=base_url()?>assets/images/2.png">
             <div class="text-center">
-                O utilizador poderá visualizar as suas estatisticas de forma bastante simples e
-                com a possibilidade de filtrar as suas actividades num determinado intervalo de tempo.
+                Run to your nearest tenis court and release those energies by shooting some balls with your friends. Show them that you're a winner.
             </div>
         </div>
         <div class="col-lg-4 col-md-6  col-xs-12">
-            <img class="img-responsive center-block img-circle" src="<?=base_url()?>assets/images/1.png">
+            <img class="img-responsive center-block img-circle" src="<?=base_url()?>assets/images/3.png">
             <div class="text-center">
-                O utilizador poderá visualizar as suas estatisticas de forma bastante simples e
-                com a possibilidade de filtrar as suas actividades num determinado intervalo de tempo.
+                Have you noticed those dance classes happening near the beach? Give it a try and shake it all off.
             </div>
         </div>
     </div>

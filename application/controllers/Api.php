@@ -7,6 +7,34 @@ class Api extends CI_Controller {
 
     }
 
+    public function remove()
+    {
+        getUserSessionDataArray();
+        $doctor_id = $_SESSION['id'];
+        if(!empty($_SESSION['user_data']) &&  !empty($_POST['remove'])) //check if the data isset and proceeds to saving data
+        {
+            $query = $this->DB_Helper->get('plan',array('id'=>$_POST['remove'],'doctor_id'=>$doctor_id));
+            if(count($query)==1)
+            {
+                $query=$this->DB_Helper->get('exerciseinstance',array('plan_id'=>$_POST['remove']));//get exercises
+
+                if(count($query)>0)
+                    $this->DB_Helper->delete('exerciseinstance',array('plan_id'=>$_POST['remove']));//remove exercises
+               $query=$this->DB_Helper->delete('plan',array('id'=>$_POST['remove'])); //remove plan
+
+                var_dump($query);
+               if(!$query)
+                   echo "SUCCESS";
+               else
+                   echo "ERROR";
+           }
+            else
+            {
+                echo "ERROR";
+            }
+
+        }
+    }
     public function updatedata()
     {
         getUserSessionDataArray();
@@ -60,6 +88,14 @@ class Api extends CI_Controller {
                 {
                   //check this
                 }break;
+                case "repetitions":
+                {
+                  //check this
+                }break;
+                case "duration":
+                {
+                  //check this
+                }break;
             }
 
 
@@ -75,12 +111,25 @@ class Api extends CI_Controller {
             if(!$error)
             {
                 if($page=="profile")
+                {
                     $this->DB_Helper->update('person',array($_POST['property']=>$_POST['value']),array('id'=>$_SESSION['id']));
+
+                    echo "SUCCESS";
+                }
                 else if ($page=="appointment")
                 {
                     $result= explode('-',$_POST['property']);
                     $property = $result[0];
                     $this->DB_Helper->update('appointment',array($property=>$_POST['value']),array('id'=>$_POST['changing']));
+                    echo "SUCCESS";
+                }
+                else if($page=="plan")
+                {
+                    $result= explode('-',$_POST['property']);
+                    $property = $result[0];
+                    $this->DB_Helper->update('exerciseinstance',array($property=>$_POST['value']),array('id'=>$_POST['changing']));
+
+                    echo "SUCCESS";
                 }
 
 
@@ -184,9 +233,10 @@ class Api extends CI_Controller {
         {
             $this->DB_Helper->update('appointment',array("state"=>$new_state),array('id'=>$id));
             echo "SUCCESS";
-            die();
+
         }
-        echo "ERROR";
+        else
+            echo "ERROR";
 
     }
 

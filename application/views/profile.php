@@ -23,6 +23,7 @@
                    Name:
                </label>
                <span id="edit-name">
+                   <input type="text" class="hidden" value="<?= $name ?>" id="name">
                     <span  value="<?=$name?>" id="name"><?=$name?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-name" value="name"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-name" value="name" id="save"></span>
@@ -34,6 +35,7 @@
                    Email:
                </label>
                <span id="edit-email">
+                   <input type="text" class="hidden" value="<?= $email ?>" id="email">
                     <span value="<?=$email?>" id="email"><?=$email?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-email" value="email"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-email" value="email" id="save"></span>
@@ -47,6 +49,7 @@
                     Address:
                </label>
                <span id="edit-address">
+                   <input type="text" class="hidden" value="<?= $address ?>" id="address">
                     <span  value="<?=$address?>" id="address"><?=$address?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-address" value="address"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-address" value="address" id="save"></span>
@@ -59,6 +62,7 @@
                     Birthdate:
                </label>
                <span id="edit-birthdate">
+                   <input type="text" class="hidden" value="<?= $birthdate ?>" id="birthdate">
                     <span  value="<?=$birthdate?>"id="birthdate"><?=$birthdate?></span>
                     <span class="glyphicon glyphicon-profile glyphicon-edit text-primary"  id="edit" name="edit-birthdate" value="birthdate"></span>
                    <span class=" glyphicon glyphicon-profile glyphicon-ok text-success hidden" name="save-birthdate" value="birthdate" id="save"></span>
